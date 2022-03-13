@@ -96,6 +96,11 @@ public class ConsoleCommManager implements Communication {
         return time;
     }
 
+    @Override
+    public void printDate(Date date) {
+        System.out.println(date.toString());
+    }
+
     private void printIllegalInputMessage() {
         System.out.println("Incorrect date format, please try again: ");
     }

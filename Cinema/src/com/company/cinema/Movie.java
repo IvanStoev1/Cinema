@@ -8,4 +8,10 @@ public class Movie {
     private Date[] projections;
     private String description;
 
+    public Movie(String title, Date[] projections, String description) {
+        this.title = title;
+        this.projections = projections;
+        this.description = description;
+    }
+
 }

@@ -19,4 +19,7 @@ public interface Communication {
     Date askForDate();
 
     Date askForTime();
+
+    void printDate(Date date);
+
 }
