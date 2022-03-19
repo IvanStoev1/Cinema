@@ -10,8 +10,13 @@ public class MovieMenu {
     public void addToMenu(Movie movie){
         movies.add(movie);
     }
+    public boolean doesMovieExist(String movieTitle){
+        return movies
+                .stream()
+                .anyMatch(movie -> movie.getTitle().equals(movieTitle));
+    }
 
-
-
-
+    public List<Movie> getMovies() {
+        return movies;
+    }
 }

@@ -29,11 +29,18 @@ public class ConsoleCommManager implements Communication {
         double n = 0;
         boolean isNumber;
         do {
-            if (scanner.hasNextDouble()) {
-                n = scanner.nextDouble();
+            String input = scanner.nextLine();
+            try {
+                n = Double.parseDouble(input);
                 isNumber = true;
-            } else {
-                isNumber = false;
+            } catch (NumberFormatException e) {
+                if (n <= 0) {
+                    isNumber = true;
+                    System.out.println("Enter a positive number");
+                }else {
+                    isNumber = false;
+                    System.out.println("Invalid input, please enter a number");
+                }
             }
 
         }
@@ -47,11 +54,18 @@ public class ConsoleCommManager implements Communication {
         int n = 0;
         boolean isNumber;
         do {
-            if (scanner.hasNextInt()) {
-                n = scanner.nextInt();
+            String input = scanner.nextLine();
+            try {
+                n = Integer.parseInt(input);
                 isNumber = true;
-            } else {
-                isNumber = false;
+            } catch (NumberFormatException e) {
+                if (n <= 0) {
+                    isNumber = true;
+                    System.out.println("Enter a positive number");
+                }else {
+                    isNumber = false;
+                    System.out.println("Invalid input, please enter a number");
+                }
             }
         } while (!(isNumber));
         return n;
