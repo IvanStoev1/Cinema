@@ -72,7 +72,7 @@ public class Cinema {
         if(loginStatus == LoginStatus.LOGIN_FAILED) {
             communication.show("Login failed");
         } else {
-            communication.show("Login successfull");
+            communication.show("Login successful");
         }
 
     }
