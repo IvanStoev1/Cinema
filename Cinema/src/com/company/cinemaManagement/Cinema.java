@@ -3,7 +3,9 @@ package com.company.cinemaManagement;
 import com.company.auth.AuthManager;
 import com.company.auth.LoginStatus;
 import com.company.auth.RegistrationCredentials;
+import com.company.cinema.Movie;
 import com.company.cinema.MovieManager;
+import com.company.cinema.Ticket;
 import com.company.communication.Communication;
 
 public class Cinema {
@@ -60,14 +62,26 @@ public class Cinema {
             int userChoice = communication.getNumberInput();
             switch (userChoice) {
                 case 1: authentication.logout(); break;
+                case 2: buyTicket(); break;
             }
         }
     }
+
+    private void buyTicket() {
+
+    }
+
+    private Movie chooseMovie() {
+        communication.show("Enter movie name");
+        String movie = communication.getTextInput();
+        return movieManager.getMovie(movie);
+
+    }
+
     private void initLoginProcess() {
-        communication.show("Enter username:");
-        String username = communication.getTextInput();
-        communication.show("Enter password:");
-        String password = communication.getTextInput();
+        String[] input = this.forms.processLoginForm();
+        String username = input[0];
+        String password = input[1];
         LoginStatus loginStatus = authentication.login(username, password);
         if(loginStatus == LoginStatus.LOGIN_FAILED) {
             communication.show("Login failed");
@@ -116,7 +130,8 @@ public class Cinema {
     }
 
     private String getClientUserOptions() {
-        return "1. Logout\n";
+        return "1. Logout\n" +
+                "2. Buy a ticket";
     }
 
     private String getAdminUserOptions() {

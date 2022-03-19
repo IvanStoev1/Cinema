@@ -6,13 +6,13 @@ import java.util.Date;
 
 public class Projection {
 
-    private String movieName;
+    private String movieTitle;
     private Date projectionDate;
     private Ticket[] ticket;
     private MovieTheater theater;
 
     public Projection(Movie movie, Date date, Ticket[] ticket) {
-        this.movieName = movie.getTitle();
+        this.movieTitle = movie.getTitle();
         this.projectionDate = date;
         this.ticket = ticket;
         this.theater = new MovieTheater();

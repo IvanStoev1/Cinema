@@ -6,5 +6,7 @@ public interface MovieManager {
 
     void addMovie(String title, Date[] projections, String description);
 
+     Movie getMovie(String title);
+
 
 }
