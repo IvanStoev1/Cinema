@@ -1,18 +1,20 @@
 package com.company.cinema;
 
+import com.company.theaterManager.MovieTheater;
+
 import java.util.Date;
 
 public class Projection {
 
-    String movieName;
-    Date date;
-    String time;
-    Ticket[] ticket;
+    private String movieName;
+    private Date projectionDate;
+    private Ticket[] ticket;
+    private MovieTheater theater;
 
-    public Projection(String movieName, Date date, String time, Ticket[] ticket) {
-        this.movieName = movieName;
-        this.date = date;
-        this.time = time;
+    public Projection(Movie movie, Date date, Ticket[] ticket) {
+        this.movieName = movie.getTitle();
+        this.projectionDate = date;
         this.ticket = ticket;
+        this.theater = new MovieTheater();
     }
 }

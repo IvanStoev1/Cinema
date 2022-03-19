@@ -37,9 +37,10 @@ public class ConsoleCommManager implements Communication {
                 if (n <= 0) {
                     isNumber = true;
                     System.out.println("Enter a positive number");
+                }else {
+                    isNumber = false;
+                    System.out.println("Invalid input, please enter a number");
                 }
-                isNumber = false;
-                System.out.println("Invalid input, please enter a number");
             }
 
         }
@@ -61,9 +62,10 @@ public class ConsoleCommManager implements Communication {
                 if (n <= 0) {
                     isNumber = true;
                     System.out.println("Enter a positive number");
+                }else {
+                    isNumber = false;
+                    System.out.println("Invalid input, please enter a number");
                 }
-                isNumber = false;
-                System.out.println("Invalid input, please enter a number");
             }
         } while (!(isNumber));
         return n;
