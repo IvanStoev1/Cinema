@@ -8,13 +8,24 @@ public class Ticket {
     private int seat;
     private Date movieDate;
     private Date currentDate;
-    private Movie movieTitle;
+    private String movieTitle;
 
-    public Ticket(int row, int seat, Date date, Movie movieTitle) {
+    public Ticket(int row, int seat, Date date, Movie movie) {
         this.row = row;
         this.seat = seat;
         this.movieDate = date;
-        this.movieTitle = movieTitle;
+        this.movieTitle = movie.getTitle();
         this.currentDate = new Date();
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "row=" + row +
+                ", seat=" + seat +
+                ", movieDate=" + movieDate +
+                ", currentDate=" + currentDate +
+                ", movieTitle='" + movieTitle + '\'' +
+                '}';
     }
 }

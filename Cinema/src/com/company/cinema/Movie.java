@@ -14,4 +14,16 @@ public class Movie {
         this.description = description;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public Date[] getProjections() {
+        return projections;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
 }

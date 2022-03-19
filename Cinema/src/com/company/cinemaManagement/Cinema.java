@@ -116,14 +116,12 @@ public class Cinema {
     }
 
     private String getClientUserOptions() {
-        return "1. Logout\n" +
-                "2. Book room";
+        return "1. Logout\n";
     }
 
     private String getAdminUserOptions() {
         return "1. Logout\n" +
-                "2. Create another Admin\n" +
-                "3. Shows rooms and availability";
+                "2. Create another Admin\n";
     }
 
 }
