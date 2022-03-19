@@ -22,5 +22,13 @@ public class CinemaManagerForms {
         String repeatPassword = communicationManager.getTextInput();
         return new String[]{username, password, repeatPassword};
     }
+
+    public String[] processLoginForm(){
+        communicationManager.show("Enter username:");
+        String username = communicationManager.getTextInput();
+        communicationManager.show("Enter password:");
+        String password = communicationManager.getTextInput();
+        return new String[]{username,password};
+    }
 }
 
