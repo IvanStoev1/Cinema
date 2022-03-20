@@ -1,29 +1,29 @@
 package com.company.cinema;
 
 import java.util.Date;
-
+            // should the ticket have a price
 public class Ticket {
 
     private int row;
     private int seat;
-    private Date movieDate;
+    private Date projectionDate;
     private Date currentDate;
     private String movieTitle;
 
-    public Ticket(int row, int seat, Date date, Movie movie) {
+    public Ticket(int row, int seat, Date date, String movie) {
         this.row = row;
         this.seat = seat;
-        this.movieDate = date;
-        this.movieTitle = movie.getTitle();
+        this.projectionDate = date;
+        this.movieTitle = movie;
         this.currentDate = new Date();
     }
 
     @Override
-    public String toString() {
+    public String toString() {  //TODO format
         return "Ticket{" +
                 "row=" + row +
                 ", seat=" + seat +
-                ", movieDate=" + movieDate +
+                ", movieDate=" + projectionDate +
                 ", currentDate=" + currentDate +
                 ", movieTitle='" + movieTitle + '\'' +
                 '}';
