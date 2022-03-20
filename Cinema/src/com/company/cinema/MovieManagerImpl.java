@@ -1,20 +1,24 @@
 package com.company.cinema;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class MovieManagerImpl implements MovieManager{
 
     private MovieMenu menu;
 
+
     public MovieManagerImpl() {
         this.menu = new MovieMenu();
     }
 
     @Override
-    public void addMovie(String title, Date[] projections, String description) {
-        Movie movie = new Movie(title,projections,description);
-        menu.addToMenu(movie);
+    public void addMovie(String title, String description) {
+        Movie movie = new Movie(title,description);
+        menu.addMovieToMenu(movie);
 
     }
 //TODO EXCEPTION NEEDED
@@ -31,4 +35,29 @@ public class MovieManagerImpl implements MovieManager{
 
     }
 
+    @Override
+    public void addProjection(String movieTitle, Date date) {
+        Projection projection = new Projection(movieTitle,date);
+        menu.addProjectionToMenu(projection);
+    }
+
+    @Override
+    public Map<String,Date> getUpcomingMovies(Date endDate) {
+        List<Projection> upcomingProjections = getUpcomingProjections(endDate);
+        Map<String,Date> upcomingMovies = upcomingProjections
+                .stream()
+                .collect(Collectors
+                        .toMap(Projection::getMovieTitle,Projection::getProjectionDate));
+        return upcomingMovies;
+    }
+
+    private List<Projection> getUpcomingProjections(Date endDate) {  //TODO throw exception null
+        Date date = new Date();
+        List<Projection> upcomingProjections = menu.getProjections()
+                .stream()
+                .filter(projection -> projection.getProjectionDate().after(date)
+                        && projection.getProjectionDate().before(endDate))
+                .collect(Collectors.toList());
+        return upcomingProjections;
+    }
 }
