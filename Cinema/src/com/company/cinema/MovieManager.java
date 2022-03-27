@@ -10,6 +10,8 @@ public interface MovieManager {
 
     Movie getMovie(String title);
 
+    Projection getProjection(String movieTitle, List<Projection> projections, Date projectionDate);
+
     void addProjection(String movieTitle, Date date);
 
     Map<String,Date> getUpcomingMovies(Date endDate);
