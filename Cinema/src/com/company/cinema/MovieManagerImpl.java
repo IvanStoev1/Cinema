@@ -3,10 +3,11 @@ package com.company.cinema;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class MovieManagerImpl implements MovieManager{
+public class MovieManagerImpl implements MovieManager {
 
     private MovieMenu menu;
 
@@ -17,14 +18,15 @@ public class MovieManagerImpl implements MovieManager{
 
     @Override
     public void addMovie(String title, String description) {
-        Movie movie = new Movie(title,description);
+        Movie movie = new Movie(title, description);
         menu.addMovieToMenu(movie);
 
     }
-//TODO EXCEPTION NEEDED
+
+    //TODO EXCEPTION NEEDED
     @Override
     public Movie getMovie(String title) {
-        if(menu.doesMovieExist(title)) {
+        if (menu.doesMovieExist(title)) {
             return menu.getMovies()
                     .stream()
                     .filter(movie -> movie.getTitle().equals(title))
@@ -34,20 +36,32 @@ public class MovieManagerImpl implements MovieManager{
         return null;
 
     }
-
+        ////TODO throw exception null
     @Override
-    public void addProjection(String movieTitle, Date date) {
-        Projection projection = new Projection(movieTitle,date);
-        menu.addProjectionToMenu(projection);
+    public Projection getProjection(String movieTitle, List<Projection> projections, Date projectionDate) {
+        Projection selectedProjection;
+        for (Projection projection : projections) {
+            if (projection.getMovieTitle().equals(movieTitle) && projection.getProjectionDate() == projectionDate) {
+                return selectedProjection = projection;
+            }
+        }
+        return null;
     }
 
     @Override
-    public Map<String,Date> getUpcomingMovies(Date endDate) {
+    public void addProjection(String movieTitle, Date date) {
+        Projection projection = new Projection(movieTitle, date);
+        menu.addProjectionToMenu(projection);
+    }
+
+    //should I just leave getUpcomingProjections and make endDate local
+    @Override
+    public Map<String, Date> getUpcomingMovies(Date endDate) {
         List<Projection> upcomingProjections = getUpcomingProjections(endDate);
-        Map<String,Date> upcomingMovies = upcomingProjections
+        Map<String, Date> upcomingMovies = upcomingProjections
                 .stream()
                 .collect(Collectors
-                        .toMap(Projection::getMovieTitle,Projection::getProjectionDate));
+                        .toMap(Projection::getMovieTitle, Projection::getProjectionDate));
         return upcomingMovies;
     }
 
