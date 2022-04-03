@@ -15,8 +15,8 @@ public class Projection {
 
     private int ticketCount;
 
-    public Projection(String movieTitle, Date date) {
-        this.movieTitle = movieTitle;
+    public Projection(Movie movieTitle, Date date) {
+        this.movieTitle = movieTitle.getTitle();
         this.projectionDate = date;
         this.theater = new MovieTheater();
         this.tickets = new Ticket[(int)theater.getTheaterCapacity()];

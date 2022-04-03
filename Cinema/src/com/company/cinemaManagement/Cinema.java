@@ -5,8 +5,11 @@ import com.company.auth.LoginStatus;
 import com.company.auth.RegistrationCredentials;
 import com.company.cinema.Movie;
 import com.company.cinema.MovieManager;
+import com.company.cinema.Projection;
 import com.company.cinema.Ticket;
 import com.company.communication.Communication;
+
+import java.util.Date;
 
 public class Cinema {
 
@@ -56,6 +59,8 @@ public class Cinema {
             switch (userChoice) {
                 case 1: authentication.logout(); break;
                 case 2: initCreateAdminProcess(); break;
+                case 3: addMovie();break;
+                case 4: createProjection();break;
             }
         } else {
             communication.show(getClientUserOptions());
@@ -65,6 +70,29 @@ public class Cinema {
                 case 2: buyTicket(); break;
             }
         }
+    }
+
+    private void createProjection() {
+        Date projectionDate = new Date();
+        communication.show("Please enter movie title");
+        String movieTitle = communication.getTextInput();
+        Movie chosenMovie = movieManager.getMovie(movieTitle);
+        communication.show("Enter date");
+        projectionDate = communication.askForDate(projectionDate);
+        communication.show("Enter time");
+        projectionDate = communication.askForTime(projectionDate);
+        movieManager.addProjection(chosenMovie,projectionDate);
+
+
+    }
+
+    private void addMovie() {
+        communication.show("Please enter movie title");
+        String movieTitle = communication.getTextInput();
+        communication.show("Enter movie description");
+        String description = communication.getTextInput();
+        movieManager.addMovie(movieTitle,description);
+
     }
 
     private void buyTicket() {
@@ -135,8 +163,11 @@ public class Cinema {
     }
 
     private String getAdminUserOptions() {
-        return "1. Logout\n" +
-                "2. Create another Admin\n";
+        return """
+                1. Logout
+                2. Create another Admin
+                3. Add movie
+                4. Create Projection""";
     }
 
 }

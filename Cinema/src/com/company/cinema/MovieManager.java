@@ -12,7 +12,7 @@ public interface MovieManager {
 
     Projection getProjection(String movieTitle, List<Projection> projections, Date projectionDate);
 
-    void addProjection(String movieTitle, Date date);
+    void addProjection(Movie movieTitle, Date date);
 
     List<Projection> getUpcomingProjections();
 }

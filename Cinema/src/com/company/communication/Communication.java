@@ -18,9 +18,9 @@ public interface Communication {
 
     void show(String[][] matrix);
 
-    Date askForDate();
+    Date askForDate(Date date);
 
-    Date askForTime();
+    Date askForTime(Date time);
 
     void printDate(Date date);
     void showTheaterOccupation(Projection projection);
