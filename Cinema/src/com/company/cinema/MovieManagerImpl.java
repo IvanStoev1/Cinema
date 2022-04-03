@@ -36,7 +36,7 @@ public class MovieManagerImpl implements MovieManager {
         return null;
 
     }
-        ////TODO throw exception null
+        //TODO throw exception null
     @Override
     public Projection getProjection(String movieTitle, List<Projection> projections, Date projectionDate) {
         Projection selectedProjection;
