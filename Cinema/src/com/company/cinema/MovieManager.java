@@ -14,5 +14,5 @@ public interface MovieManager {
 
     void addProjection(String movieTitle, Date date);
 
-    Map<String,Date> getUpcomingMovies(Date endDate);
+    List<Projection> getUpcomingProjections();
 }
