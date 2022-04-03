@@ -1,5 +1,7 @@
 package com.company.communication;
 
+import com.company.cinema.Projection;
+
 import java.util.Date;
 
 public interface Communication {
@@ -21,5 +23,6 @@ public interface Communication {
     Date askForTime();
 
     void printDate(Date date);
+    void showTheaterOccupation(Projection projection);
 
 }

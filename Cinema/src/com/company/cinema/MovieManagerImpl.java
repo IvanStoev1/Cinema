@@ -36,7 +36,7 @@ public class MovieManagerImpl implements MovieManager {
         return null;
 
     }
-        ////TODO throw exception null
+        //TODO throw exception null
     @Override
     public Projection getProjection(String movieTitle, List<Projection> projections, Date projectionDate) {
         Projection selectedProjection;
@@ -54,19 +54,11 @@ public class MovieManagerImpl implements MovieManager {
         menu.addProjectionToMenu(projection);
     }
 
-    //should I just leave getUpcomingProjections and make endDate local
-    @Override
-    public Map<String, Date> getUpcomingMovies(Date endDate) {
-        List<Projection> upcomingProjections = getUpcomingProjections(endDate);
-        Map<String, Date> upcomingMovies = upcomingProjections
-                .stream()
-                .collect(Collectors
-                        .toMap(Projection::getMovieTitle, Projection::getProjectionDate));
-        return upcomingMovies;
-    }
-
-    private List<Projection> getUpcomingProjections(Date endDate) {  //TODO throw exception null
+    public List<Projection> getUpcomingProjections() {  //TODO throw exception null
         Date date = new Date();
+        Date endDate = date;
+        endDate.setHours(23);
+        endDate.setMinutes(59);
         List<Projection> upcomingProjections = menu.getProjections()
                 .stream()
                 .filter(projection -> projection.getProjectionDate().after(date)

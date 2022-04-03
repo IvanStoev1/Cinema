@@ -1,5 +1,8 @@
 package com.company.communication;
 
+import com.company.cinema.Projection;
+import com.company.theaterManager.MovieTheater;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -113,6 +116,19 @@ public class ConsoleCommManager implements Communication {
     @Override
     public void printDate(Date date) {
         System.out.println(date.toString());
+    }
+
+    @Override
+    public void showTheaterOccupation(Projection projection) {
+        MovieTheater theater = projection.getTheater();
+        System.out.println("-------------------------------");
+        System.out.println("\t\tSCREEN");
+        for (int i = 0; i <theater.getSeats().length ; i++) {
+            System.out.print((i + 1) + "\t");
+            for (int j = 0; j < theater.getSeats()[i].length; j++) {
+                System.out.println(theater.getSeats()[i][j].getSymbol());
+            }
+        }
     }
 
     private void printIllegalInputMessage() {

@@ -10,6 +10,9 @@ public class Projection {
     private Date projectionDate;
     private Ticket[] tickets;
     private MovieTheater theater;
+
+
+
     private int ticketCount;
 
     public Projection(String movieTitle, Date date) {
@@ -32,6 +35,10 @@ public class Projection {
 
     public Date getProjectionDate() {
         return projectionDate;
+    }
+
+    public MovieTheater getTheater() {
+        return theater;
     }
 
     public Ticket[] getTickets() {
