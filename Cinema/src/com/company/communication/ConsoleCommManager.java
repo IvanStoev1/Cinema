@@ -83,32 +83,30 @@ public class ConsoleCommManager implements Communication {
     public void show(String[][] matrix) {
 
     }
-
+//FIX Validation
     @Override
-    public Date askForDate() {
+    public Date askForDate(Date date) {
 
-        Date date = null;
         System.out.print("Order date in format DD/MM/YYYY : ");
         String dateInput = scanner.nextLine();
         try {
             date = new SimpleDateFormat("dd/MM/yyyy").parse(dateInput);
         } catch (ParseException e) {
             printIllegalInputMessage();
-            askForDate();
+            askForDate(date);
         }
         return date;
     }
-
+//FIX Validation
     @Override
-    public Date askForTime() {
-        Date time = null;
+    public Date askForTime(Date time) {
         System.out.print("Order time in format HH:MM : ");
         String timeInput = scanner.nextLine();
         try {
             time = new SimpleDateFormat("HH:mm").parse(timeInput);
         } catch (ParseException e) {
             printIllegalInputMessage();
-            askForTime();
+            askForTime(time);
         }
         return time;
     }

@@ -49,7 +49,7 @@ public class MovieManagerImpl implements MovieManager {
     }
 
     @Override
-    public void addProjection(String movieTitle, Date date) {
+    public void addProjection(Movie movieTitle, Date date) {
         Projection projection = new Projection(movieTitle, date);
         menu.addProjectionToMenu(projection);
     }
@@ -59,11 +59,10 @@ public class MovieManagerImpl implements MovieManager {
         Date endDate = date;
         endDate.setHours(23);
         endDate.setMinutes(59);
-        List<Projection> upcomingProjections = menu.getProjections()
+        return menu.getProjections()
                 .stream()
                 .filter(projection -> projection.getProjectionDate().after(date)
                         && projection.getProjectionDate().before(endDate))
                 .collect(Collectors.toList());
-        return upcomingProjections;
     }
 }
