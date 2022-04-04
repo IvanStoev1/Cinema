@@ -14,5 +14,6 @@ public class Main {
                 new ConsoleCommManager(),
                 new MovieManagerImpl())
                 .initializeProgram();
+
     }
 }

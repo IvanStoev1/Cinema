@@ -68,8 +68,19 @@ public class Cinema {
             switch (userChoice) {
                 case 1: authentication.logout(); break;
                 case 2: buyTicket(); break;
+                case 3: testDate();break;
             }
         }
+    }
+
+    private void testDate() {
+        Date projectionDate = new Date();
+        communication.show("Enter date");
+        projectionDate = communication.askForDate(projectionDate);
+//        communication.show("Enter time");
+//        projectionDate = communication.askForTime(projectionDate);
+        System.out.println(projectionDate);
+
     }
 
     private void createProjection() {
@@ -96,10 +107,33 @@ public class Cinema {
     }
 
     private void buyTicket() {
+        communication.showProjections(movieManager.getUpcomingProjections());
+        communication.show("Choose projection number");
+        int projectionNumber = communication.getNumberInput();
+        Projection chosenProjection = movieManager.getUpcomingProjections().get(projectionNumber);
+        communication.showTheaterOccupation(chosenProjection);
+        communication.show("How many tickets do you want");
+        int tickets = communication.getNumberInput();
+        for (int i = 0; i < tickets; i++) {
+            communication.show("Please enter row");
+            int row = communication.getNumberInput();
+            communication.show("Please enter seat number");
+            int col = communication.getNumberInput();
+            while (chosenProjection.getTheater().isSeatOccupied(row,col)){
+                System.out.println("This seat is occupied");
+                communication.show("Please enter another row");
+                row = communication.getNumberInput();
+                communication.show("Please enter another seat number");
+                col = communication.getNumberInput();
+            }
+            chosenProjection.getTheater().occupySeat(row,col);
+
+        }
+        
 
     }
 
-    private Movie chooseMovie() {
+    private Movie choose() {
         communication.show("Enter movie name");
         String movie = communication.getTextInput();
         return movieManager.getMovie(movie);
