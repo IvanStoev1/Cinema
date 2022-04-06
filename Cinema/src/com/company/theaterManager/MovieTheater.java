@@ -16,7 +16,17 @@ public class MovieTheater {
         return seats;
     }
 
-    public long getTheaterCapacity(){
-       return Arrays.stream(seats).count();
+    public long getTheaterCapacity() {
+        return Arrays.stream(seats).count();
+    }
+
+    public void occupySeat(int row, int col) {
+
+        seats[row][col].setTaken(true);
+    }
+
+    public boolean isSeatOccupied(int row, int col) {
+
+        return seats[row][col].isTaken();
     }
 }

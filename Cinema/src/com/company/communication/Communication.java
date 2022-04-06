@@ -3,6 +3,7 @@ package com.company.communication;
 import com.company.cinema.Projection;
 
 import java.util.Date;
+import java.util.List;
 
 public interface Communication {
 
@@ -23,6 +24,9 @@ public interface Communication {
     Date askForTime(Date time);
 
     void printDate(Date date);
+
     void showTheaterOccupation(Projection projection);
+
+    void showProjections(List<Projection> projections);
 
 }

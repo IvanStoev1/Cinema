@@ -3,9 +3,12 @@ package com.company.communication;
 import com.company.cinema.Projection;
 import com.company.theaterManager.MovieTheater;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleCommManager implements Communication {
@@ -88,8 +91,10 @@ public class ConsoleCommManager implements Communication {
 
         System.out.print("Order date in format DD/MM/YYYY : ");
         String dateInput = scanner.nextLine();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        df.setLenient(false);
         try {
-            date = new SimpleDateFormat("dd/MM/yyyy").parse(dateInput);
+            date = df.parse(dateInput);
         } catch (ParseException e) {
             printIllegalInputMessage();
             askForDate(date);
@@ -128,6 +133,18 @@ public class ConsoleCommManager implements Communication {
                 }
                 System.out.println(j+1);
             }
+        }
+    }
+
+    @Override
+    public void showProjections(List<Projection> projections) {
+        for (int i = 0; i < projections.size(); i++) {
+            System.out.print(i+1);
+            System.out.print(projections.get(i).getMovieTitle());
+            System.out.println(projections.get(i).getProjectionDate().getHours()
+            + ":" +
+                    projections.get(i).getProjectionDate().getMinutes());
+
         }
     }
 

@@ -74,6 +74,7 @@ public class Cinema {
             communication.show(getClientUserOptions());
             int userChoice = communication.getNumberInput();
             switch (userChoice) {
+<<<<<<< HEAD
                 case 1:
                     authentication.logout();
                     break;
@@ -83,15 +84,31 @@ public class Cinema {
                 case 3:
                     tryT();
                     break;
+=======
+                case 1: authentication.logout(); break;
+                case 2: buyTicket(); break;
+                case 3: testDate();break;
+>>>>>>> 87bc7aa5f3ebb9a7ffaf1a7df5b106a34f83d73f
             }
         }
     }
 
+<<<<<<< HEAD
     private void tryT() {
         Date date = new Date();
         Movie movie = new Movie("Xmen", "nikhjgufcygh");
         Projection projection = new Projection(movie, date);
         communication.showTheaterOccupation(projection);
+=======
+    private void testDate() {
+        Date projectionDate = new Date();
+        communication.show("Enter date");
+        projectionDate = communication.askForDate(projectionDate);
+//        communication.show("Enter time");
+//        projectionDate = communication.askForTime(projectionDate);
+        System.out.println(projectionDate);
+
+>>>>>>> 87bc7aa5f3ebb9a7ffaf1a7df5b106a34f83d73f
     }
 
     private void createProjection() {
@@ -118,9 +135,42 @@ public class Cinema {
     }
 
     private void buyTicket() {
+        communication.showProjections(movieManager.getUpcomingProjections());
+        communication.show("Choose projection number");
+        int projectionNumber = communication.getNumberInput();
+        Projection chosenProjection = movieManager.getUpcomingProjections().get(projectionNumber);
+        communication.showTheaterOccupation(chosenProjection);
+        communication.show("How many tickets do you want");
+        int tickets = communication.getNumberInput();
+        for (int i = 0; i < tickets; i++) {
+            communication.show("Please enter row");
+            int row = communication.getNumberInput();
+            communication.show("Please enter seat number");
+            int col = communication.getNumberInput();
+            while (chosenProjection.getTheater().isSeatOccupied(row,col)){
+                System.out.println("This seat is occupied");
+                communication.show("Please enter another row");
+                row = communication.getNumberInput();
+                communication.show("Please enter another seat number");
+                col = communication.getNumberInput();
+            }
+            chosenProjection.getTheater().occupySeat(row,col);
+
+        }
+        
 
     }
 
+<<<<<<< HEAD
+=======
+    private Movie choose() {
+        communication.show("Enter movie name");
+        String movie = communication.getTextInput();
+        return movieManager.getMovie(movie);
+
+    }
+
+>>>>>>> 87bc7aa5f3ebb9a7ffaf1a7df5b106a34f83d73f
     private void initLoginProcess() {
         String[] input = this.forms.processLoginForm();
         String username = input[0];
