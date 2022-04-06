@@ -45,7 +45,6 @@ public class ConsoleCommManager implements Communication {
                     System.out.println("Invalid input, please enter a number");
                 }
             }
-
         }
         while (!(isNumber));
         return n;
@@ -124,7 +123,10 @@ public class ConsoleCommManager implements Communication {
         for (int i = 0; i <theater.getSeats().length ; i++) {
             System.out.print((i + 1) + "\t");
             for (int j = 0; j < theater.getSeats()[i].length; j++) {
-                System.out.println(theater.getSeats()[i][j].getSymbol());
+                if (theater.getSeats()[i][j].isTaken()) {
+                    System.out.println(theater.getSeats()[i][j].getSymbol());
+                }
+                System.out.println(j+1);
             }
         }
     }

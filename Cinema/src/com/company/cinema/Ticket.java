@@ -10,11 +10,11 @@ public class Ticket {
     private Date currentDate;
     private String movieTitle;
 
-    public Ticket(int row, int seat, Date date, String movie) {
+    public Ticket(int row, int seat, Date date, String movieTitle) {
         this.row = row;
         this.seat = seat;
         this.projectionDate = date;
-        this.movieTitle = movie;
+        this.movieTitle = movieTitle;
         this.currentDate = new Date();
     }
 

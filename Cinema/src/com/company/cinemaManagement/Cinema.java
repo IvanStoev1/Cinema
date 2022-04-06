@@ -3,10 +3,7 @@ package com.company.cinemaManagement;
 import com.company.auth.AuthManager;
 import com.company.auth.LoginStatus;
 import com.company.auth.RegistrationCredentials;
-import com.company.cinema.Movie;
-import com.company.cinema.MovieManager;
-import com.company.cinema.Projection;
-import com.company.cinema.Ticket;
+import com.company.cinema.*;
 import com.company.communication.Communication;
 
 import java.util.Date;
@@ -53,23 +50,48 @@ public class Cinema {
     }
 
     private void processLoggedUserOptions() {
-        if(authentication.isLoggedUserAdmin()) {
+        if (authentication.isLoggedUserAdmin()) {
             communication.show(getAdminUserOptions());
             int userChoice = communication.getNumberInput();
             switch (userChoice) {
-                case 1: authentication.logout(); break;
-                case 2: initCreateAdminProcess(); break;
-                case 3: addMovie();break;
-                case 4: createProjection();break;
+                case 1:
+                    authentication.logout();
+                    break;
+                case 2:
+                    initCreateAdminProcess();
+                    break;
+                case 3:
+                    addMovie();
+                    break;
+                case 4:
+                    createProjection();
+                    break;
+                case 5:
+                    tryT();
+                    break;
             }
         } else {
             communication.show(getClientUserOptions());
             int userChoice = communication.getNumberInput();
             switch (userChoice) {
-                case 1: authentication.logout(); break;
-                case 2: buyTicket(); break;
+                case 1:
+                    authentication.logout();
+                    break;
+                case 2:
+                    buyTicket();
+                    break;
+                case 3:
+                    tryT();
+                    break;
             }
         }
+    }
+
+    private void tryT() {
+        Date date = new Date();
+        Movie movie = new Movie("Xmen", "nikhjgufcygh");
+        Projection projection = new Projection(movie, date);
+        communication.showTheaterOccupation(projection);
     }
 
     private void createProjection() {
@@ -81,7 +103,7 @@ public class Cinema {
         projectionDate = communication.askForDate(projectionDate);
         communication.show("Enter time");
         projectionDate = communication.askForTime(projectionDate);
-        movieManager.addProjection(chosenMovie,projectionDate);
+        movieManager.addProjection(chosenMovie, projectionDate);
 
 
     }
@@ -91,18 +113,11 @@ public class Cinema {
         String movieTitle = communication.getTextInput();
         communication.show("Enter movie description");
         String description = communication.getTextInput();
-        movieManager.addMovie(movieTitle,description);
+        movieManager.addMovie(movieTitle, description);
 
     }
 
     private void buyTicket() {
-
-    }
-
-    private Movie chooseMovie() {
-        communication.show("Enter movie name");
-        String movie = communication.getTextInput();
-        return movieManager.getMovie(movie);
 
     }
 
@@ -111,20 +126,21 @@ public class Cinema {
         String username = input[0];
         String password = input[1];
         LoginStatus loginStatus = authentication.login(username, password);
-        if(loginStatus == LoginStatus.LOGIN_FAILED) {
+        if (loginStatus == LoginStatus.LOGIN_FAILED) {
             communication.show("Login failed");
         } else {
             communication.show("Login successful");
         }
 
     }
+
     private void initCreateAdminProcess() {
         CinemaCommunicator cm = (CinemaCommunicator) new CinemaCommunicatorImpl();
         RegistrationCredentials creds = cm.getAdminRegistrationCredentials();
 
-        if(creds.password.equals(creds.repeatPassword)) {
+        if (creds.password.equals(creds.repeatPassword)) {
             boolean registerIsSuccessful = authentication.registerAdmin(creds.username, creds.password);
-            if(registerIsSuccessful) {
+            if (registerIsSuccessful) {
                 communication.show("Registration successful");
             } else {
                 communication.show("Such user exists.");
@@ -133,15 +149,16 @@ public class Cinema {
             communication.show("Passwords should match");
         }
     }
+
     private void initCreateClientProcess() {
         String[] input = this.forms.processForm();
         String username = input[0];
         String password = input[1];
         String repeatPassword = input[2];
 
-        if(password.equals(repeatPassword)) {
+        if (password.equals(repeatPassword)) {
             boolean registerIsSuccessful = authentication.registerClient(username, password);
-            if(registerIsSuccessful) {
+            if (registerIsSuccessful) {
                 communication.show("Registration successful");
             } else {
                 communication.show("Such user exists.");

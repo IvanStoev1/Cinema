@@ -6,9 +6,10 @@ import java.util.Arrays;
 
 public class MovieTheater {
     private Projection projection;
-    private final Seat[][] seats = new Seat[12][20];
+    private Seat[][] seats;
 
     public MovieTheater() {
+        seats = new Seat[12][20];
     }
 
     public Seat[][] getSeats() {
