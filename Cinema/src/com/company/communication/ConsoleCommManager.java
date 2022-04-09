@@ -136,6 +136,7 @@ public class ConsoleCommManager implements Communication {
             }
             System.out.println();
         }
+        System.out.println("\n legend \n ■ - seat is taken");
     }
 
     @Override
