@@ -3,7 +3,10 @@ package com.company.cinemaManagement;
 import com.company.auth.AuthManager;
 import com.company.auth.LoginStatus;
 import com.company.auth.RegistrationCredentials;
-import com.company.cinema.*;
+import com.company.cinema.Movie;
+import com.company.cinema.MovieManager;
+import com.company.cinema.Projection;
+import com.company.cinema.Ticket;
 import com.company.communication.Communication;
 
 import java.util.Date;
@@ -49,197 +52,169 @@ public class Cinema {
 
     }
 
-    private String getNonRegisterUserOptions() {
-        return null;
-    }
-
     private void processLoggedUserOptions() {
-        if (authentication.isLoggedUserAdmin()) {
+        if(authentication.isLoggedUserAdmin()) {
             communication.show(getAdminUserOptions());
             int userChoice = communication.getNumberInput();
             switch (userChoice) {
-                case 1:
-                    authentication.logout();
-                    break;
-                case 2:
-                    initCreateAdminProcess();
-                    break;
-                case 3:
-                    addMovie();
-                    break;
-                case 4:
-                    createProjection();
-                    break;
-                case 5:
-                    tryT();
-                    break;
+                case 1: authentication.logout(); break;
+                case 2: initCreateAdminProcess(); break;
+                case 3: addMovie();break;
+                case 4: createProjection();break;
+                case 5: showTheater();
             }
         } else {
             communication.show(getClientUserOptions());
             int userChoice = communication.getNumberInput();
             switch (userChoice) {
-                case 1:
-                    authentication.logout();
-                    break;
-                case 2:
-                    buyTicket();
-                    break;
-                case 3:
-                    tryT();
-                    break;
-
-                case 1:
-                    authentication.logout();
-                    break;
-                case 2:
-                    buyTicket();
-                    break;
-                case 3:
-                    testDate();
-                    break;
+                case 1: authentication.logout(); break;
+                case 2: buyTicket(); break;
+                case 3: testDate();break;
             }
         }
     }
 
-
-    private String tryT() {
+    private void showTheater() {
+        Movie movie = new Movie("XMEN", "dfhasnbv");
         Date date = new Date();
-        Movie movie = new Movie("Xmen", "nikhjgufcygh");
-        Projection projection = new Projection(movie, date);
+        Projection projection = new Projection(movie,date);
+        projection.getTheater().occupySeat(0,4);
+        projection.getTheater().occupySeat(1,15);
+        projection.getTheater().occupySeat(2,18);
+        projection.getTheater().occupySeat(6,1);
+        projection.getTheater().occupySeat(9,19);
         communication.showTheaterOccupation(projection);
+    }
 
-        private void testDate () {
-            Date projectionDate = new Date();
-            communication.show("Enter date");
-            projectionDate = communication.askForDate(projectionDate);
+    private void testDate() {
+        Date projectionDate = new Date();
+        communication.show("Enter date");
+        projectionDate = communication.askForDate(projectionDate);
 //        communication.show("Enter time");
 //        projectionDate = communication.askForTime(projectionDate);
-            System.out.println(projectionDate);
+        System.out.println(projectionDate);
 
-        }
+    }
 
-        private void createProjection () {
-            Date projectionDate = new Date();
-            communication.show("Please enter movie title");
-            String movieTitle = communication.getTextInput();
-            Movie chosenMovie = movieManager.getMovie(movieTitle);
-            communication.show("Enter date");
-            projectionDate = communication.askForDate(projectionDate);
-            communication.show("Enter time");
-            projectionDate = communication.askForTime(projectionDate);
-            movieManager.addProjection(chosenMovie, projectionDate);
+    private void createProjection() {
+        Date projectionDate = new Date();
+        communication.show("Please enter movie title");
+        String movieTitle = communication.getTextInput();
+        Movie chosenMovie = movieManager.getMovie(movieTitle);
+        communication.show("Enter date");
+        projectionDate = communication.askForDate(projectionDate);
+        communication.show("Enter time");
+        projectionDate = communication.askForTime(projectionDate);
+        movieManager.addProjection(chosenMovie,projectionDate);
 
-        }
 
-        private void addMovie () {
-            communication.show("Please enter movie title");
-            String movieTitle = communication.getTextInput();
-            communication.show("Enter movie description");
-            String description = communication.getTextInput();
-            movieManager.addMovie(movieTitle, description);
+    }
 
-        }
+    private void addMovie() {
+        communication.show("Please enter movie title");
+        String movieTitle = communication.getTextInput();
+        communication.show("Enter movie description");
+        String description = communication.getTextInput();
+        movieManager.addMovie(movieTitle,description);
 
-        private void buyTicket () {
-            communication.showProjections(movieManager.getUpcomingProjections());
-            communication.show("Choose projection number");
-            int projectionNumber = communication.getNumberInput();
-            Projection chosenProjection = movieManager.getUpcomingProjections().get(projectionNumber);
-            communication.showTheaterOccupation(chosenProjection);
-            communication.show("How many tickets do you want");
-            int tickets = communication.getNumberInput();
-            for (int i = 0; i < tickets; i++) {
-                communication.show("Please enter row");
-                int row = communication.getNumberInput();
-                communication.show("Please enter seat number");
-                int col = communication.getNumberInput();
-                while (chosenProjection.getTheater().isSeatOccupied(row, col)) {
-                    System.out.println("This seat is occupied");
-                    communication.show("Please enter another row");
-                    row = communication.getNumberInput();
-                    communication.show("Please enter another seat number");
-                    col = communication.getNumberInput();
-                }
-                chosenProjection.getTheater().occupySeat(row, col);
-
+    }
+                //when buying a ticket check for index out of bounce
+    private void buyTicket() {
+        communication.showProjections(movieManager.getUpcomingProjections());
+        communication.show("Choose projection number");
+        int projectionNumber = communication.getNumberInput();
+        Projection chosenProjection = movieManager.getUpcomingProjections().get(projectionNumber);
+        communication.showTheaterOccupation(chosenProjection);
+        communication.show("How many tickets do you want");
+        int tickets = communication.getNumberInput();
+        for (int i = 0; i < tickets; i++) {
+            communication.show("Please enter row");
+            int row = communication.getNumberInput();
+            communication.show("Please enter seat number");
+            int col = communication.getNumberInput();
+            while (chosenProjection.getTheater().isSeatOccupied(row,col)){
+                System.out.println("This seat is occupied");
+                communication.show("Please enter another row");
+                row = communication.getNumberInput();
+                communication.show("Please enter another seat number");
+                col = communication.getNumberInput();
             }
-
-
-        }
-
-
-//    private Movie choose() {
-//        communication.show("Enter movie name");
-//        String movie = communication.getTextInput();
-//        return movieManager.getMovie(movie);
-//
-//    }
-
-        private void initLoginProcess () {
-            String[] input = this.forms.processLoginForm();
-            String username = input[0];
-            String password = input[1];
-            LoginStatus loginStatus = authentication.login(username, password);
-            if (loginStatus == LoginStatus.LOGIN_FAILED) {
-                communication.show("Login failed");
-            } else {
-                communication.show("Login successful");
-            }
+            chosenProjection.getTheater().occupySeat(row,col);
 
         }
 
-        private void initCreateAdminProcess () {
-            CinemaCommunicator cm = (CinemaCommunicator) new CinemaCommunicatorImpl();
-            RegistrationCredentials creds = cm.getAdminRegistrationCredentials();
 
-            if (creds.password.equals(creds.repeatPassword)) {
-                boolean registerIsSuccessful = authentication.registerAdmin(creds.username, creds.password);
-                if (registerIsSuccessful) {
-                    communication.show("Registration successful");
-                } else {
-                    communication.show("Such user exists.");
-                }
-            } else {
-                communication.show("Passwords should match");
-            }
-        }
+    }
+            //TODO to REMOVE or NOT
+    private Movie choose() {
+        communication.show("Enter movie name");
+        String movie = communication.getTextInput();
+        return movieManager.getMovie(movie);
 
-        private void initCreateClientProcess () {
-            String[] input = this.forms.processForm();
-            String username = input[0];
-            String password = input[1];
-            String repeatPassword = input[2];
+    }
 
-            if (password.equals(repeatPassword)) {
-                boolean registerIsSuccessful = authentication.registerClient(username, password);
-                if (registerIsSuccessful) {
-                    communication.show("Registration successful");
-                } else {
-                    communication.show("Such user exists.");
-                }
-            } else {
-                communication.show("Passwords should match");
-            }
-        }
-
-
-        private String getNonRegisterUserOptions () {
-            return "1. Login\n" +
-                    "2. Create new Client account";
-        }
-
-        private String getClientUserOptions () {
-            return "1. Logout\n" +
-                    "2. Buy a ticket";
-        }
-
-        private String getAdminUserOptions () {
-            return """
-                    1. Logout
-                    2. Create another Admin
-                    3. Add movie
-                    4. Create Projection""";
+    private void initLoginProcess() {
+        String[] input = this.forms.processLoginForm();
+        String username = input[0];
+        String password = input[1];
+        LoginStatus loginStatus = authentication.login(username, password);
+        if(loginStatus == LoginStatus.LOGIN_FAILED) {
+            communication.show("Login failed");
+        } else {
+            communication.show("Login successful");
         }
 
     }
+    private void initCreateAdminProcess() {
+        CinemaCommunicator cm = (CinemaCommunicator) new CinemaCommunicatorImpl();
+        RegistrationCredentials creds = cm.getAdminRegistrationCredentials();
+
+        if(creds.password.equals(creds.repeatPassword)) {
+            boolean registerIsSuccessful = authentication.registerAdmin(creds.username, creds.password);
+            if(registerIsSuccessful) {
+                communication.show("Registration successful");
+            } else {
+                communication.show("Such user exists.");
+            }
+        } else {
+            communication.show("Passwords should match");
+        }
+    }
+    private void initCreateClientProcess() {
+        String[] input = this.forms.processForm();
+        String username = input[0];
+        String password = input[1];
+        String repeatPassword = input[2];
+
+        if(password.equals(repeatPassword)) {
+            boolean registerIsSuccessful = authentication.registerClient(username, password);
+            if(registerIsSuccessful) {
+                communication.show("Registration successful");
+            } else {
+                communication.show("Such user exists.");
+            }
+        } else {
+            communication.show("Passwords should match");
+        }
+    }
+
+
+    private String getNonRegisterUserOptions() {
+        return "1. Login\n" +
+                "2. Create new Client account";
+    }
+
+    private String getClientUserOptions() {
+        return "1. Logout\n" +
+                "2. Buy a ticket";
+    }
+
+    private String getAdminUserOptions() {
+        return """
+                1. Logout
+                2. Create another Admin
+                3. Add movie
+                4. Create Projection""";
+    }
+
 }

@@ -12,7 +12,7 @@ public class MovieTheater {
         initialiseSeats();
     }
 
-    private Seat[][] initialiseSeats(){ 
+    private Seat[][] initialiseSeats(){
         seats = new Seat[12][20];
         for (int i = 0; i < seats.length; i++) {
             for (int j = 0; j < seats[i].length; j++) {
