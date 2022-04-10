@@ -129,7 +129,7 @@ public class Cinema {
             chosenProjection.getTheater().occupySeat(row,col);
 
         }
-        
+
 
     }
 
