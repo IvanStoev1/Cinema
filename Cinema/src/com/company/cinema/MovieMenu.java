@@ -8,6 +8,10 @@ public class MovieMenu {
     private List<Movie> movies = new ArrayList<>();
     private List<Projection> projections = new ArrayList<>();
 
+    public MovieMenu() {
+
+    }
+
     public void addMovieToMenu(Movie movie){
         movies.add(movie);
     }

@@ -61,6 +61,7 @@ public class Cinema {
                 case 2: initCreateAdminProcess(); break;
                 case 3: addMovie();break;
                 case 4: createProjection();break;
+                case 5: showTheater();
             }
         } else {
             communication.show(getClientUserOptions());
@@ -71,6 +72,18 @@ public class Cinema {
                 case 3: testDate();break;
             }
         }
+    }
+
+    private void showTheater() {
+        Movie movie = new Movie("XMEN", "dfhasnbv");
+        Date date = new Date();
+        Projection projection = new Projection(movie,date);
+        projection.getTheater().occupySeat(0,4);
+        projection.getTheater().occupySeat(1,15);
+        projection.getTheater().occupySeat(2,18);
+        projection.getTheater().occupySeat(6,1);
+        projection.getTheater().occupySeat(9,19);
+        communication.showTheaterOccupation(projection);
     }
 
     private void testDate() {
@@ -105,7 +118,7 @@ public class Cinema {
         movieManager.addMovie(movieTitle,description);
 
     }
-
+                //when buying a ticket check for index out of bounce
     private void buyTicket() {
         communication.showProjections(movieManager.getUpcomingProjections());
         communication.show("Choose projection number");
@@ -129,10 +142,10 @@ public class Cinema {
             chosenProjection.getTheater().occupySeat(row,col);
 
         }
-        
+
 
     }
-
+            //TODO to REMOVE or NOT
     private Movie choose() {
         communication.show("Enter movie name");
         String movie = communication.getTextInput();
