@@ -2,41 +2,41 @@ package com.company.auth;
 
 public class AuthenticationManagerImpl implements AuthManager {
 
-    private final UserDatabase database;
+    private final UserDao database;
     private User loggedUser;
 
     public AuthenticationManagerImpl() {
-        this.database = new UserDatabase();
+        this.database = UserDao.getInstance();
         this.loggedUser = null;
     }
 
 
     @Override
     public boolean registerClient(String clientName, String clientPassword) {
-        if(database.userExists(clientName)) {
+        if(database.userExists(clientName,clientPassword)) {
             return false;
         }
 
         Client client = new Client(clientName, clientPassword);
-        database.addUser(client);
+        database.insert(client);
         return true;
 
     }
 
     @Override
     public boolean registerAdmin(String username, String password) {
-        if(database.userExists(username)) {
+        if(database.userExists(username,password)) {
             return false;
         }
 
         Admin admin = new Admin(username, password);
-        database.addUser(admin);
+        database.insert(admin);
         return true;
     }
 
     @Override
     public LoginStatus login(String username, String password) {
-        User user = database.getUser(username);
+        User user = database.getObject(username);
         if(user != null && user.getPassword().equals(password)) {
             loggedUser = user;
             return user instanceof Client ? LoginStatus.SUCCESS_CLIENT : LoginStatus.SUCCESS_ADMIN;

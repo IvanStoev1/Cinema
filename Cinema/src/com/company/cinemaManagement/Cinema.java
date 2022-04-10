@@ -3,10 +3,7 @@ package com.company.cinemaManagement;
 import com.company.auth.AuthManager;
 import com.company.auth.LoginStatus;
 import com.company.auth.RegistrationCredentials;
-import com.company.cinema.Movie;
-import com.company.cinema.MovieManager;
-import com.company.cinema.Projection;
-import com.company.cinema.Ticket;
+import com.company.cinema.*;
 import com.company.communication.Communication;
 
 import java.util.Date;
@@ -61,7 +58,7 @@ public class Cinema {
                 case 2: initCreateAdminProcess(); break;
                 case 3: addMovie();break;
                 case 4: createProjection();break;
-                case 5: showTheater();
+                case 5: showMovies();break;
             }
         } else {
             communication.show(getClientUserOptions());
@@ -74,24 +71,16 @@ public class Cinema {
         }
     }
 
-    private void showTheater() {
-        Movie movie = new Movie("XMEN", "dfhasnbv");
-        Date date = new Date();
-        Projection projection = new Projection(movie,date);
-        projection.getTheater().occupySeat(0,4);
-        projection.getTheater().occupySeat(1,15);
-        projection.getTheater().occupySeat(2,18);
-        projection.getTheater().occupySeat(6,1);
-        projection.getTheater().occupySeat(9,19);
-        communication.showTheaterOccupation(projection);
+    private void showMovies() {
+        System.out.println(movieManager.getAllMovies().get(1));
     }
 
     private void testDate() {
         Date projectionDate = new Date();
         communication.show("Enter date");
         projectionDate = communication.askForDate(projectionDate);
-//        communication.show("Enter time");
-//        projectionDate = communication.askForTime(projectionDate);
+        communication.show("Enter time");
+        projectionDate = communication.askForTime(projectionDate);
         System.out.println(projectionDate);
 
     }
@@ -118,7 +107,7 @@ public class Cinema {
         movieManager.addMovie(movieTitle,description);
 
     }
-                //when buying a ticket check for index out of bounce
+                //when buying a ticket check for index out of bounds
     private void buyTicket() {
         communication.showProjections(movieManager.getUpcomingProjections());
         communication.show("Choose projection number");

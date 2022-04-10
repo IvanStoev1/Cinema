@@ -2,36 +2,36 @@ package com.company.cinema;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class MovieManagerImpl implements MovieManager {
 
-    private MovieMenu menu;
+    private MovieDao movies;
+    private ProjectionDao projections;
 
 
     public MovieManagerImpl() {
-        this.menu = new MovieMenu();
+        this.movies = new MovieDao();
+        this.projections = new ProjectionDao();
     }
 
     @Override
     public void addMovie(String title, String description) {
         Movie movie = new Movie(title, description);
-        menu.addMovieToMenu(movie);
+        movies.insert(movie);
 
     }
 
     //TODO EXCEPTION NEEDED
     @Override
     public Movie getMovie(String title) {
-        if (menu.doesMovieExist(title)) {
-            return menu.getMovies()
+        if (movies.getObject(title) != null) {
+            return movies.
+                    findAll()
                     .stream()
                     .filter(movie -> movie.getTitle().equals(title))
-                    .findFirst().get();
-
+                    .findFirst()
+                    .get();
         }
         return null;
 
@@ -51,7 +51,7 @@ public class MovieManagerImpl implements MovieManager {
     @Override
     public void addProjection(Movie movieTitle, Date date) {
         Projection projection = new Projection(movieTitle, date);
-        menu.addProjectionToMenu(projection);
+        projections.insert(projection);
     }
 
     public List<Projection> getUpcomingProjections() {  //TODO throw exception null
@@ -59,10 +59,16 @@ public class MovieManagerImpl implements MovieManager {
         Date endDate = date;
         endDate.setHours(23);
         endDate.setMinutes(59);
-        return menu.getProjections()
+        return projections
+                .findAll()
                 .stream()
                 .filter(projection -> projection.getProjectionDate().after(date)
                         && projection.getProjectionDate().before(endDate))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Movie> getAllMovies() {
+        return movies.findAll();
     }
 }

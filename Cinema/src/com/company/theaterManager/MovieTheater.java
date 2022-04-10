@@ -2,17 +2,18 @@ package com.company.theaterManager;
 
 import com.company.cinema.Projection;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class MovieTheater {
+public class MovieTheater implements Serializable {
     private Projection projection;
     private Seat[][] seats;
 
     public MovieTheater() {
-        initialiseSeats();
+        initializeSeats();
     }
 
-    private Seat[][] initialiseSeats(){
+    private Seat[][] initializeSeats(){
         seats = new Seat[12][20];
         for (int i = 0; i < seats.length; i++) {
             for (int j = 0; j < seats[i].length; j++) {
