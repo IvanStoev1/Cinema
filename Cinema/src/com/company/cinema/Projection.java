@@ -3,6 +3,7 @@ package com.company.cinema;
 import com.company.theaterManager.MovieTheater;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 
 public class Projection implements Serializable {
@@ -44,5 +45,16 @@ public class Projection implements Serializable {
 
     public Ticket[] getTickets() {
         return tickets;
+    }
+
+    @Override
+    public String toString() {
+        return "Projection{" +
+                "movieTitle='" + movieTitle + '\'' +
+                ", projectionDate=" + projectionDate +
+                ", tickets=" + Arrays.toString(tickets) +
+                ", theater=" + theater +
+                ", ticketCount=" + ticketCount +
+                '}';
     }
 }

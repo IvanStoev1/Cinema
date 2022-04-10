@@ -1,18 +1,24 @@
 package com.company.communication;
 
+import com.company.cinema.Movie;
 import com.company.cinema.Projection;
 import com.company.theaterManager.MovieTheater;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleCommManager implements Communication {
-
+    static DateTimeFormatter dateFormatter =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                    .withResolverStyle(ResolverStyle.STRICT);
     private Scanner scanner;
 
     public ConsoleCommManager() {
@@ -89,6 +95,7 @@ public class ConsoleCommManager implements Communication {
     @Override
     public Date askForDate(Date date) {
 
+
         System.out.print("Order date in format DD/MM/YYYY : ");
         String dateInput = scanner.nextLine();
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -148,6 +155,13 @@ public class ConsoleCommManager implements Communication {
             + ":" +
                     projections.get(i).getProjectionDate().getMinutes());
 
+        }
+    }
+
+    @Override
+    public void showMovies(List<Movie> movies) {
+        for (int i = 0; i < movies.size(); i++) {
+            System.out.println((i+1) + " " + movies.get(i).getTitle());
         }
     }
 

@@ -71,4 +71,16 @@ public class MovieManagerImpl implements MovieManager {
     public List<Movie> getAllMovies() {
         return movies.findAll();
     }
+
+    @Override
+    public Movie getMovie(int index) {
+        return movies.findAll().get(index);
+    }
+
+    @Override
+    public List <Projection> getAllProjections() {
+        return projections.findAll();
+    }
+
+
 }
