@@ -2,9 +2,10 @@ package com.company.cinema;
 
 import com.company.theaterManager.MovieTheater;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Projection {
+public class Projection implements Serializable {
 
     private String movieTitle;
     private Date projectionDate;

@@ -15,4 +15,6 @@ public interface MovieManager {
     void addProjection(Movie movieTitle, Date date);
 
     List<Projection> getUpcomingProjections();
+
+    List<Movie>getAllMovies();
 }

@@ -1,9 +1,10 @@
 package com.company.cinema;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Serializable {
 
     private String title;
     private String description;
@@ -21,4 +22,11 @@ public class Movie {
         return description;
     }
 
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
