@@ -1,6 +1,8 @@
 package com.company.theaterManager;
 
-public class Seat {
+import java.io.Serializable;
+
+public class Seat implements Serializable {
     private int row;
     private int col;
     private boolean isTaken;

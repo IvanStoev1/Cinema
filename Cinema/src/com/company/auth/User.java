@@ -1,6 +1,8 @@
 package com.company.auth;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private static int userCount = 0;
     private long id;
@@ -24,5 +26,14 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
