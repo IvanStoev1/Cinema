@@ -61,6 +61,7 @@ public class Cinema {
                 case 3: addMovie();break;
                 case 4: createProjection();break;
                 case 5: showMovies();break;
+                case 6: showProjectins();break;
             }
         } else {
             communication.show(getClientUserOptions());
@@ -73,8 +74,14 @@ public class Cinema {
         }
     }
 
+    private void showProjectins() {
+        communication.showProjections(movieManager.getAllProjections());
+
+    }
+
+
     private void showMovies() {
-        System.out.println(movieManager.getAllMovies().get(1));
+        System.out.println(movieManager.getMovie(0));
     }
 
     private void testDate() {
@@ -89,9 +96,10 @@ public class Cinema {
 
     private void createProjection() {
         Date projectionDate = new Date();
-        communication.show("Please enter movie title");
-        String movieTitle = communication.getTextInput();
-        Movie chosenMovie = movieManager.getMovie(movieTitle);
+        communication.showMovies(movieManager.getAllMovies());
+        communication.show("Please enter movie index");
+        int movieIndex = communication.getNumberInput();
+        Movie chosenMovie = movieManager.getMovie(movieIndex);
         communication.show("Enter date");
         projectionDate = communication.askForDate(projectionDate);
         communication.show("Enter time");

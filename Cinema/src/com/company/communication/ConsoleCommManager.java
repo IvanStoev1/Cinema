@@ -1,5 +1,6 @@
 package com.company.communication;
 
+import com.company.cinema.Movie;
 import com.company.cinema.Projection;
 import com.company.theaterManager.MovieTheater;
 
@@ -154,6 +155,13 @@ public class ConsoleCommManager implements Communication {
             + ":" +
                     projections.get(i).getProjectionDate().getMinutes());
 
+        }
+    }
+
+    @Override
+    public void showMovies(List<Movie> movies) {
+        for (int i = 0; i < movies.size(); i++) {
+            System.out.println((i+1) + " " + movies.get(i).getTitle());
         }
     }
 
