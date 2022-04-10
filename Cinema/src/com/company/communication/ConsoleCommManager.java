@@ -48,7 +48,6 @@ public class ConsoleCommManager implements Communication {
                     System.out.println("Invalid input, please enter a number");
                 }
             }
-
         }
         while (!(isNumber));
         return n;
@@ -86,7 +85,7 @@ public class ConsoleCommManager implements Communication {
     public void show(String[][] matrix) {
 
     }
-//FIX Validation
+// TODO FIX Validation
     @Override
     public Date askForDate(Date date) {
 
@@ -102,7 +101,7 @@ public class ConsoleCommManager implements Communication {
         }
         return date;
     }
-//FIX Validation
+// TODO FIX Validation
     @Override
     public Date askForTime(Date time) {
         System.out.print("Order time in format HH:MM : ");
@@ -124,14 +123,20 @@ public class ConsoleCommManager implements Communication {
     @Override
     public void showTheaterOccupation(Projection projection) {
         MovieTheater theater = projection.getTheater();
-        System.out.println("-------------------------------");
-        System.out.println("\t\tSCREEN");
+        System.out.println("\t\t\t\t\t\t\t\t------------------------------------");
+        System.out.println("rows\t\t\t\t\t\t\t\t\t\t   SCREEN \n");
         for (int i = 0; i <theater.getSeats().length ; i++) {
-            System.out.print((i + 1) + "\t");
+            System.out.print((i + 1) + "\t\t");
             for (int j = 0; j < theater.getSeats()[i].length; j++) {
-                System.out.println(theater.getSeats()[i][j].getSymbol());
+                if (theater.getSeats()[i][j].isTaken()) {
+                    System.out.print(theater.getSeats()[i][j].getSymbol() + " | ");
+                }else{
+                    System.out.print(j+1 + " | ");
+                }
             }
+            System.out.println();
         }
+        System.out.println("\n legend \n ■ - seat is taken");
     }
 
     @Override

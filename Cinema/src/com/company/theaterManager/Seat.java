@@ -1,16 +1,22 @@
 package com.company.theaterManager;
 
 public class Seat {
-    private int number;
+    private int row;
+    private int col;
     private boolean isTaken;
 
-    public Seat(int number, boolean isTaken) {
-        this.number = number;
-        this.isTaken = isTaken;
+    public Seat(int row, int col) {
+        this.row = row;
+        this.col = col;
+        this.isTaken = false;
     }
 
-    public int getNumber() {
-        return number;
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
     }
 
     public boolean isTaken() {
