@@ -2,6 +2,7 @@ package com.company.communication;
 
 import com.company.cinema.Projection;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 

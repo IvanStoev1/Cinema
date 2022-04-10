@@ -6,13 +6,18 @@ import com.company.theaterManager.MovieTheater;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleCommManager implements Communication {
-
+    static DateTimeFormatter dateFormatter =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                    .withResolverStyle(ResolverStyle.STRICT);
     private Scanner scanner;
 
     public ConsoleCommManager() {
@@ -88,6 +93,7 @@ public class ConsoleCommManager implements Communication {
 // TODO FIX Validation
     @Override
     public Date askForDate(Date date) {
+
 
         System.out.print("Order date in format DD/MM/YYYY : ");
         String dateInput = scanner.nextLine();

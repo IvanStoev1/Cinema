@@ -9,6 +9,8 @@ import com.company.cinema.Projection;
 import com.company.cinema.Ticket;
 import com.company.communication.Communication;
 
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.Date;
 
 public class Cinema {
@@ -87,7 +89,7 @@ public class Cinema {
     }
 
     private void testDate() {
-        Date projectionDate = new Date();
+        Date projectionDate = null;
         communication.show("Enter date");
         projectionDate = communication.askForDate(projectionDate);
 //        communication.show("Enter time");
