@@ -39,8 +39,8 @@ public abstract class FIleIO<T>implements Serializable{
 
         return data;
     }
-    protected abstract T getObject(String object);
 
+    protected abstract T getObject(String object);
 
 }
 

@@ -7,6 +7,8 @@ import com.company.cinemaManagement.CinemaCommunicator;
 import com.company.cinemaManagement.CinemaCommunicatorImpl;
 import com.company.communication.ConsoleCommManager;
 
+import java.util.Date;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -14,6 +16,7 @@ public class Main {
                 new ConsoleCommManager(),
                 new MovieManagerImpl())
                 .initializeProgram();
+
 
     }
 }

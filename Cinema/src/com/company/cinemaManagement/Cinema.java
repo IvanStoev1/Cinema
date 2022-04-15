@@ -6,8 +6,6 @@ import com.company.auth.RegistrationCredentials;
 import com.company.cinema.*;
 import com.company.communication.Communication;
 
-import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.util.Date;
 
 public class Cinema {
@@ -60,8 +58,8 @@ public class Cinema {
                 case 2: initCreateAdminProcess(); break;
                 case 3: addMovie();break;
                 case 4: createProjection();break;
-                case 5: showMovies();break;
-                case 6: showProjectins();break;
+                case 5: removeMovie();break;
+                case 0: showProjections();break;
             }
         } else {
             communication.show(getClientUserOptions());
@@ -69,43 +67,32 @@ public class Cinema {
             switch (userChoice) {
                 case 1: authentication.logout(); break;
                 case 2: buyTicket(); break;
-                case 3: testDate();break;
             }
         }
     }
 
-    private void showProjectins() {
+    private void removeMovie() {
+        showProjections();
+        communication.show("Please enter movie index");
+        int movieIndex = communication.getNumberInput();
+
+    }
+
+    private void showProjections() {
         communication.showProjections(movieManager.getAllProjections());
 
     }
 
-
-    private void showMovies() {
-        System.out.println(movieManager.getMovie(0));
-    }
-
-    private void testDate() {
-        Date projectionDate = null;
-        communication.show("Enter date");
-        projectionDate = communication.askForDate(projectionDate);
-        communication.show("Enter time");
-        projectionDate = communication.askForTime(projectionDate);
-        System.out.println(projectionDate);
-
-    }
-
     private void createProjection() {
-        Date projectionDate = new Date();
+        Date projectionDate = null;
         communication.showMovies(movieManager.getAllMovies());
         communication.show("Please enter movie index");
-        int movieIndex = communication.getNumberInput();
+        int movieIndex = communication.getNumberInput() -1;
         Movie chosenMovie = movieManager.getMovie(movieIndex);
         communication.show("Enter date");
-        projectionDate = communication.askForDate(projectionDate);
-        communication.show("Enter time");
-        projectionDate = communication.askForTime(projectionDate);
+        projectionDate = communication.askForDate();
         movieManager.addProjection(chosenMovie,projectionDate);
-
+        System.out.println(chosenMovie + " \n" + projectionDate);
 
     }
 
@@ -119,18 +106,19 @@ public class Cinema {
     }
                 //when buying a ticket check for index out of bounds
     private void buyTicket() {
+        communication.showProjections(movieManager.getAllProjections());
         communication.showProjections(movieManager.getUpcomingProjections());
         communication.show("Choose projection number");
-        int projectionNumber = communication.getNumberInput();
+        int projectionNumber = communication.getNumberInput() -1;
         Projection chosenProjection = movieManager.getUpcomingProjections().get(projectionNumber);
         communication.showTheaterOccupation(chosenProjection);
         communication.show("How many tickets do you want");
         int tickets = communication.getNumberInput();
         for (int i = 0; i < tickets; i++) {
             communication.show("Please enter row");
-            int row = communication.getNumberInput();
+            int row = communication.getNumberInput() -1;
             communication.show("Please enter seat number");
-            int col = communication.getNumberInput();
+            int col = communication.getNumberInput() -1;
             while (chosenProjection.getTheater().isSeatOccupied(row,col)){
                 System.out.println("This seat is occupied");
                 communication.show("Please enter another row");
@@ -140,9 +128,8 @@ public class Cinema {
             }
             chosenProjection.getTheater().occupySeat(row,col);
 
+
         }
-
-
     }
             //TODO to REMOVE or NOT
     private Movie choose() {

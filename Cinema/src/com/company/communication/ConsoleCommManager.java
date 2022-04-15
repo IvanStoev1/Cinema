@@ -91,36 +91,23 @@ public class ConsoleCommManager implements Communication {
     public void show(String[][] matrix) {
 
     }
-// TODO FIX Validation
+
     @Override
-    public Date askForDate(Date date) {
-
-
-        System.out.print("Order date in format DD/MM/YYYY : ");
-        String dateInput = scanner.nextLine();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    public Date askForDate() {
+        Date date = null;
+        System.out.print("Order date in format DD/MM/YY HH:mm : ");
+        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm");
         df.setLenient(false);
         try {
+            String dateInput = scanner.nextLine();
             date = df.parse(dateInput);
         } catch (ParseException e) {
             printIllegalInputMessage();
-            askForDate(date);
+            askForDate();
         }
         return date;
     }
-// TODO FIX Validation
-    @Override
-    public Date askForTime(Date time) {
-        System.out.print("Order time in format HH:MM : ");
-        String timeInput = scanner.nextLine();
-        try {
-            time = new SimpleDateFormat("HH:mm").parse(timeInput);
-        } catch (ParseException e) {
-            printIllegalInputMessage();
-            askForTime(time);
-        }
-        return time;
-    }
+
 
     @Override
     public void printDate(Date date) {
@@ -149,8 +136,8 @@ public class ConsoleCommManager implements Communication {
     @Override
     public void showProjections(List<Projection> projections) {
         for (int i = 0; i < projections.size(); i++) {
-            System.out.print(i+1);
-            System.out.print(projections.get(i).getMovieTitle());
+            System.out.print(i+1 + " ");
+            System.out.print(projections.get(i).getMovieTitle() + " ");
             System.out.println(projections.get(i).getProjectionDate().getHours()
             + ":" +
                     projections.get(i).getProjectionDate().getMinutes());
