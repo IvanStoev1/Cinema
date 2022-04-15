@@ -137,10 +137,8 @@ public class ConsoleCommManager implements Communication {
     public void showProjections(List<Projection> projections) {
         for (int i = 0; i < projections.size(); i++) {
             System.out.print(i+1 + " ");
-            System.out.print(projections.get(i).getMovieTitle() + " ");
-            System.out.println(projections.get(i).getProjectionDate().getHours()
-            + ":" +
-                    projections.get(i).getProjectionDate().getMinutes());
+            System.out.print(projections.get(i).getMovieTitle() + "\t|\t ");
+            System.out.println(projections.get(i).getProjectionDate());
 
         }
     }

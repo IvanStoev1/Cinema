@@ -50,32 +50,74 @@ public class Cinema {
     }
 
     private void processLoggedUserOptions() {
-        if(authentication.isLoggedUserAdmin()) {
+        if (authentication.isLoggedUserAdmin()) {
             communication.show(getAdminUserOptions());
             int userChoice = communication.getNumberInput();
             switch (userChoice) {
-                case 1: authentication.logout(); break;
-                case 2: initCreateAdminProcess(); break;
-                case 3: addMovie();break;
-                case 4: createProjection();break;
-                case 5: removeMovie();break;
-                case 0: showProjections();break;
+                case 1:
+                    authentication.logout();
+                    break;
+                case 2:
+                    initCreateAdminProcess();
+                    break;
+                case 3:
+                    addMovie();
+                    break;
+                case 4:
+                    removeMovie();
+                    break;
+                case 5:
+                    createProjection();
+                    break;
+                case 6:
+                    removeProjection();
+                    break;
+                case 0:
+                    showProjections();
+                    break;
             }
         } else {
             communication.show(getClientUserOptions());
             int userChoice = communication.getNumberInput();
             switch (userChoice) {
-                case 1: authentication.logout(); break;
-                case 2: buyTicket(); break;
+                case 1:
+                    authentication.logout();
+                    break;
+                case 2:
+                    buyTicket();
+                    break;
             }
         }
     }
 
-    private void removeMovie() {
-        showProjections();
-        communication.show("Please enter movie index");
-        int movieIndex = communication.getNumberInput();
+    private void removeProjection() {
+        communication.showProjections(movieManager.getAllProjections());
+        int allProjectionsLength = movieManager.getAllProjections().size()-1;
+        int projectionIndex = 0;
+        communication.show("Please enter projection index");
+        do {
+            projectionIndex = communication.getNumberInput() - 1;
+            if (projectionIndex < 0 || projectionIndex > allProjectionsLength){
+                communication.show("Please enter a valid movie index");
+            }
+        } while (projectionIndex < 0 || projectionIndex > allProjectionsLength);
+        movieManager.removeProjection(projectionIndex);
+        communication.show("The projection was removed successfully");
+    }
 
+    private void removeMovie() {
+        communication.showMovies(movieManager.getAllMovies());
+        int allMoviesLength = movieManager.getAllMovies().size()-1;
+        int movieIndex = 0;
+        communication.show("Please enter movie index");
+        do {
+            movieIndex = communication.getNumberInput() - 1;
+            if (movieIndex < 0 || movieIndex > allMoviesLength){
+                communication.show("Please enter a valid movie index");
+            }
+        } while (movieIndex < 0 || movieIndex > allMoviesLength);
+        movieManager.removeMovie(movieIndex);
+        communication.show("The movie was removed successfully");
     }
 
     private void showProjections() {
@@ -87,11 +129,11 @@ public class Cinema {
         Date projectionDate = null;
         communication.showMovies(movieManager.getAllMovies());
         communication.show("Please enter movie index");
-        int movieIndex = communication.getNumberInput() -1;
+        int movieIndex = communication.getNumberInput() - 1;
         Movie chosenMovie = movieManager.getMovie(movieIndex);
         communication.show("Enter date");
         projectionDate = communication.askForDate();
-        movieManager.addProjection(chosenMovie,projectionDate);
+        movieManager.addProjection(chosenMovie, projectionDate);
         System.out.println(chosenMovie + " \n" + projectionDate);
 
     }
@@ -101,37 +143,39 @@ public class Cinema {
         String movieTitle = communication.getTextInput();
         communication.show("Enter movie description");
         String description = communication.getTextInput();
-        movieManager.addMovie(movieTitle,description);
+        movieManager.addMovie(movieTitle, description);
 
     }
-                //when buying a ticket check for index out of bounds
+
+    //when buying a ticket check for index out of bounds
     private void buyTicket() {
         communication.showProjections(movieManager.getAllProjections());
         communication.showProjections(movieManager.getUpcomingProjections());
         communication.show("Choose projection number");
-        int projectionNumber = communication.getNumberInput() -1;
+        int projectionNumber = communication.getNumberInput() - 1;
         Projection chosenProjection = movieManager.getUpcomingProjections().get(projectionNumber);
         communication.showTheaterOccupation(chosenProjection);
         communication.show("How many tickets do you want");
         int tickets = communication.getNumberInput();
         for (int i = 0; i < tickets; i++) {
             communication.show("Please enter row");
-            int row = communication.getNumberInput() -1;
+            int row = communication.getNumberInput() - 1;
             communication.show("Please enter seat number");
-            int col = communication.getNumberInput() -1;
-            while (chosenProjection.getTheater().isSeatOccupied(row,col)){
+            int col = communication.getNumberInput() - 1;
+            while (chosenProjection.getTheater().isSeatOccupied(row, col)) {
                 System.out.println("This seat is occupied");
                 communication.show("Please enter another row");
                 row = communication.getNumberInput();
                 communication.show("Please enter another seat number");
                 col = communication.getNumberInput();
             }
-            chosenProjection.getTheater().occupySeat(row,col);
+            chosenProjection.getTheater().occupySeat(row, col);
 
 
         }
     }
-            //TODO to REMOVE or NOT
+
+    //TODO to REMOVE or NOT
     private Movie choose() {
         communication.show("Enter movie name");
         String movie = communication.getTextInput();
@@ -144,20 +188,21 @@ public class Cinema {
         String username = input[0];
         String password = input[1];
         LoginStatus loginStatus = authentication.login(username, password);
-        if(loginStatus == LoginStatus.LOGIN_FAILED) {
+        if (loginStatus == LoginStatus.LOGIN_FAILED) {
             communication.show("Login failed");
         } else {
             communication.show("Login successful");
         }
 
     }
+
     private void initCreateAdminProcess() {
         CinemaCommunicator cm = (CinemaCommunicator) new CinemaCommunicatorImpl();
         RegistrationCredentials creds = cm.getAdminRegistrationCredentials();
 
-        if(creds.password.equals(creds.repeatPassword)) {
+        if (creds.password.equals(creds.repeatPassword)) {
             boolean registerIsSuccessful = authentication.registerAdmin(creds.username, creds.password);
-            if(registerIsSuccessful) {
+            if (registerIsSuccessful) {
                 communication.show("Registration successful");
             } else {
                 communication.show("Such user exists.");
@@ -166,15 +211,16 @@ public class Cinema {
             communication.show("Passwords should match");
         }
     }
+
     private void initCreateClientProcess() {
         String[] input = this.forms.processForm();
         String username = input[0];
         String password = input[1];
         String repeatPassword = input[2];
 
-        if(password.equals(repeatPassword)) {
+        if (password.equals(repeatPassword)) {
             boolean registerIsSuccessful = authentication.registerClient(username, password);
-            if(registerIsSuccessful) {
+            if (registerIsSuccessful) {
                 communication.show("Registration successful");
             } else {
                 communication.show("Such user exists.");
@@ -200,7 +246,9 @@ public class Cinema {
                 1. Logout
                 2. Create another Admin
                 3. Add movie
-                4. Create Projection""";
+                4. Remove movie
+                5. Create projection
+                6. Remove projection""";
     }
 
 }

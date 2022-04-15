@@ -23,7 +23,16 @@ public class MovieManagerImpl implements MovieManager {
     }
 
     public void removeMovie(int index) {
-        //add method in FileIO or in MovieDao
+        List<Movie> movies = getAllMovies();
+        movies.remove(index);
+        this.movies.overwrite(movies);
+    }
+
+    @Override
+    public void removeProjection(int projectionIndex) {
+        List<Projection> projections = getAllProjections();
+        projections.remove(projectionIndex);
+        this.projections.overwrite(projections);
     }
 
     //TODO EXCEPTION NEEDED
@@ -87,6 +96,5 @@ public class MovieManagerImpl implements MovieManager {
     public List<Projection> getAllProjections() {
         return projections.findAll();
     }
-
 
 }

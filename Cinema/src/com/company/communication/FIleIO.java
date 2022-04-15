@@ -6,11 +6,17 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class FIleIO<T>implements Serializable{
+
     public void insert(T data) {
         List<T> allDataPoints = load();
         allDataPoints.add(data);
         overwrite(allDataPoints);
     }
+
+//    public void save(){
+//        List<T> allDataPoints = load();
+//        allDataPoints
+//    }
 
     protected abstract String getFileName();
 
@@ -18,7 +24,7 @@ public abstract class FIleIO<T>implements Serializable{
         return load();
     }
 
-    private void overwrite(List<T> data) {
+    public void overwrite(List<T> data) {
         try (ObjectOutputStream os =
                      new ObjectOutputStream(new FileOutputStream(getFileName()))) {
             os.writeObject(data);
