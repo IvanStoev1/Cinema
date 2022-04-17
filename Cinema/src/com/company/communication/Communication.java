@@ -21,9 +21,7 @@ public interface Communication {
 
     void show(String[][] matrix);
 
-    Date askForDate(Date date);
-
-    Date askForTime(Date time);
+    Date askForDate();
 
     void printDate(Date date);
 

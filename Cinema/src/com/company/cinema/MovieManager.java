@@ -21,4 +21,8 @@ public interface MovieManager {
     Movie getMovie(int index);
 
     List<Projection> getAllProjections();
+
+    void removeMovie(int movieIndex);
+
+    void removeProjection(int projectionIndex);
 }

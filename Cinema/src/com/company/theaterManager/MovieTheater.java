@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 public class MovieTheater implements Serializable {
-    private Projection projection;
     private Seat[][] seats;
 
     public MovieTheater() {

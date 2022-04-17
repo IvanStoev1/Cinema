@@ -22,6 +22,19 @@ public class MovieManagerImpl implements MovieManager {
 
     }
 
+    public void removeMovie(int index) {
+        List<Movie> movies = getAllMovies();
+        movies.remove(index);
+        this.movies.overwrite(movies);
+    }
+
+    @Override
+    public void removeProjection(int projectionIndex) {
+        List<Projection> projections = getAllProjections();
+        projections.remove(projectionIndex);
+        this.projections.overwrite(projections);
+    }
+
     //TODO EXCEPTION NEEDED
     @Override
     public Movie getMovie(String title) {
@@ -36,7 +49,8 @@ public class MovieManagerImpl implements MovieManager {
         return null;
 
     }
-        //TODO throw exception null
+
+    //TODO throw exception null
     @Override
     public Projection getProjection(String movieTitle, List<Projection> projections, Date projectionDate) {
         Projection selectedProjection;
@@ -54,17 +68,18 @@ public class MovieManagerImpl implements MovieManager {
         projections.insert(projection);
     }
 
-    public List<Projection> getUpcomingProjections() {  //TODO throw exception null
+    public List<Projection> getUpcomingProjections() {  //TODO returns size 0 / throw exception null or size 0
         Date date = new Date();
         Date endDate = date;
         endDate.setHours(23);
         endDate.setMinutes(59);
-        return projections
+        List<Projection> upcomingProjections = projections
                 .findAll()
                 .stream()
                 .filter(projection -> projection.getProjectionDate().after(date)
                         && projection.getProjectionDate().before(endDate))
                 .collect(Collectors.toList());
+        return upcomingProjections;
     }
 
     @Override
@@ -78,9 +93,8 @@ public class MovieManagerImpl implements MovieManager {
     }
 
     @Override
-    public List <Projection> getAllProjections() {
+    public List<Projection> getAllProjections() {
         return projections.findAll();
     }
-
 
 }
