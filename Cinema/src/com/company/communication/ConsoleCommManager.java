@@ -117,6 +117,7 @@ public class ConsoleCommManager implements Communication {
     @Override
     public void showTheaterOccupation(Projection projection) {
         MovieTheater theater = projection.getTheater();
+        System.out.println("\t\t\t\t\t\t\t\t" + projection.getMovieTitle() + " \n \t\t\t\t\t\t\t\t" + projection.getProjectionDate());
         System.out.println("\t\t\t\t\t\t\t\t------------------------------------");
         System.out.println("rows\t\t\t\t\t\t\t\t\t\t   SCREEN \n");
         for (int i = 0; i <theater.getSeats().length ; i++) {

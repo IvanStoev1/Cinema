@@ -141,29 +141,8 @@ public class Cinema {
 
     //when buying a ticket check for index out of bounds
     private void buyTicket() {
-        communication.showProjections(movieManager.getUpcomingProjections());
-        communication.show("Choose projection number");
-        int projectionNumber = communication.getNumberInput() - 1;
-        Projection chosenProjection = movieManager.getUpcomingProjections().get(projectionNumber);
-        communication.showTheaterOccupation(chosenProjection);
-        communication.show("How many tickets do you want");
-        int tickets = communication.getNumberInput();
-        for (int i = 0; i < tickets; i++) {
-            communication.show("Please enter row");
-            int row = communication.getNumberInput() - 1;
-            communication.show("Please enter seat number");
-            int col = communication.getNumberInput() - 1;
-            while (chosenProjection.getTheater().isSeatOccupied(row, col)) {
-                System.out.println("This seat is occupied");
-                communication.show("Please enter another row");
-                row = communication.getNumberInput() - 1;
-                communication.show("Please enter another seat number");
-                col = communication.getNumberInput() - 1;
-            }
-            chosenProjection.getTheater().occupySeat(row, col);
-            communication.showTheaterOccupation(chosenProjection);
-            movieManager.saveChanges(chosenProjection);
-        }
+       TicketPurchaseProcedure ticketPurchaseProcedure = new TicketPurchaseProcedure(movieManager,communication);
+       ticketPurchaseProcedure.initializePurchase();
     }
 
     private void initLoginProcess() {
