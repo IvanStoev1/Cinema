@@ -1,5 +1,7 @@
 package com.company.cinema;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -78,7 +80,12 @@ public class MovieManagerImpl implements MovieManager {
                 .stream()
                 .filter(projection -> projection.getProjectionDate().after(date)
                         && projection.getProjectionDate().before(endDate))
-                .collect(Collectors.toList());
+                .sorted(new Comparator<Projection>() {
+                    @Override
+                    public int compare(Projection o1, Projection o2) {
+                        return o1.getProjectionDate().compareTo(o2.getProjectionDate());
+                    }
+                }).collect(Collectors.toList());
         return upcomingProjections;
     }
 
@@ -97,6 +104,22 @@ public class MovieManagerImpl implements MovieManager {
         return projections.findAll();
     }
 
+    @Override
+    public void saveChanges(Projection projection) {
+        List<Projection> pr = getAllProjections();
+        pr.remove(projectionIndex(projection,pr));
+        pr.add(projection);
+        projections.overwrite(pr);
 
+    }
 
+    private int projectionIndex(Projection projection, List<Projection> pr) {
+        for (int i = 0; i < pr.size(); i++) {
+            if(pr.get(i).getMovieTitle().equals(projection.getMovieTitle()) &&
+                    pr.get(i).getProjectionDate().equals(projection.getProjectionDate())){
+                return i;
+            }
+        }
+        return -1;
+    }
 }
