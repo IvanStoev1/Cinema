@@ -2,6 +2,7 @@ package com.company.cinemaManagement;
 
 import com.company.cinema.MovieManager;
 import com.company.cinema.Projection;
+import com.company.cinema.Ticket;
 import com.company.communication.Communication;
 
 public class TicketPurchaseProcedure {
@@ -25,7 +26,7 @@ public class TicketPurchaseProcedure {
     }
 
     private void purchaseTicket(Projection chosenProjection, int tickets) {
-        boolean isConfirmed = false;
+        Ticket[] purchasedTickets = new Ticket[tickets];
         for (int i = 0; i < tickets; i++) {
             communication.show("Please enter row");
             int row = getRow(chosenProjection);
@@ -39,12 +40,15 @@ public class TicketPurchaseProcedure {
                 col = getCol(chosenProjection);
             }
             chosenProjection.getTheater().occupySeat(row, col);
+            chosenProjection.addTicket(row,col);
+            purchasedTickets[i] = new Ticket(row,col,chosenProjection.getProjectionDate(),chosenProjection.getMovieTitle());
             communication.showTheaterOccupation(chosenProjection);
-            communication.show("Please confirm your purchase - Press 1 to confirm, Press any button to decline");
-            int choice = communication.getNumberInput();
-            if (choice == 1) {
-                movieManager.saveChanges(chosenProjection);
-            }
+        }
+        communication.show("Please confirm your purchase - Press 1 to confirm, Press any button to decline");
+        int choice = communication.getNumberInput();
+        if (choice == 1) {
+            movieManager.saveChanges(chosenProjection);
+            printTicket(purchasedTickets);
         }
     }
 
@@ -79,6 +83,13 @@ public class TicketPurchaseProcedure {
             projectionNumber = communication.getNumberInput() - 1;
         }
         return movieManager.getUpcomingProjections().get(projectionNumber);
+    }
+
+    void printTicket(Ticket[] tickets) {
+        for (int i = 0; i < tickets.length; i++) {
+            communication.printTicket(tickets[i]);
+        }
+
     }
 
 }

@@ -2,6 +2,7 @@ package com.company.communication;
 
 import com.company.cinema.Movie;
 import com.company.cinema.Projection;
+import com.company.cinema.Ticket;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -30,5 +31,7 @@ public interface Communication {
     void showProjections(List<Projection> projections);
 
     void showMovies(List<Movie> movies);
+
+    void printTicket(Ticket ticket);
 
 }
