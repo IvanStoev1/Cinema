@@ -68,9 +68,9 @@ public class MovieManagerImpl implements MovieManager {
         projections.insert(projection);
     }
 
-    public List<Projection> getUpcomingProjections() {  //TODO returns size 0 / throw exception null or size 0
+    public List<Projection> getUpcomingProjections() {  //TODO  throw exception null or size 0
         Date date = new Date();
-        Date endDate = date;
+        Date endDate = new Date();
         endDate.setHours(23);
         endDate.setMinutes(59);
         List<Projection> upcomingProjections = projections
@@ -96,5 +96,7 @@ public class MovieManagerImpl implements MovieManager {
     public List<Projection> getAllProjections() {
         return projections.findAll();
     }
+
+
 
 }

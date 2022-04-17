@@ -25,4 +25,7 @@ public interface MovieManager {
     void removeMovie(int movieIndex);
 
     void removeProjection(int projectionIndex);
+
+
+
 }

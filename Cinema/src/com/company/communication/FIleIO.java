@@ -13,11 +13,6 @@ public abstract class FIleIO<T>implements Serializable{
         overwrite(allDataPoints);
     }
 
-//    public void save(){
-//        List<T> allDataPoints = load();
-//        allDataPoints
-//    }
-
     protected abstract String getFileName();
 
     public List<T> findAll() {
