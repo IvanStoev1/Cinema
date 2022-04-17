@@ -2,6 +2,7 @@ package com.company.communication;
 
 import com.company.cinema.Movie;
 import com.company.cinema.Projection;
+import com.company.cinema.Ticket;
 import com.company.theaterManager.MovieTheater;
 
 import java.text.DateFormat;
@@ -149,6 +150,11 @@ public class ConsoleCommManager implements Communication {
         for (int i = 0; i < movies.size(); i++) {
             System.out.println((i+1) + " " + movies.get(i).getTitle());
         }
+    }
+
+    @Override
+    public void printTicket(Ticket ticket) {
+        System.out.println(ticket);
     }
 
     private void printIllegalInputMessage() {
