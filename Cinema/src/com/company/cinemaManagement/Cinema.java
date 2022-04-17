@@ -141,7 +141,6 @@ public class Cinema {
 
     //when buying a ticket check for index out of bounds
     private void buyTicket() {
-      //communication.showProjections(movieManager.getAllProjections());
         communication.showProjections(movieManager.getUpcomingProjections());
         communication.show("Choose projection number");
         int projectionNumber = communication.getNumberInput() - 1;
@@ -157,13 +156,13 @@ public class Cinema {
             while (chosenProjection.getTheater().isSeatOccupied(row, col)) {
                 System.out.println("This seat is occupied");
                 communication.show("Please enter another row");
-                row = communication.getNumberInput();
+                row = communication.getNumberInput() - 1;
                 communication.show("Please enter another seat number");
-                col = communication.getNumberInput();
+                col = communication.getNumberInput() - 1;
             }
             chosenProjection.getTheater().occupySeat(row, col);
             communication.showTheaterOccupation(chosenProjection);
-            movieManager.saveChanges();
+            movieManager.saveChanges(chosenProjection);
         }
     }
 
