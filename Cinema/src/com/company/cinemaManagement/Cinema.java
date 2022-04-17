@@ -72,9 +72,6 @@ public class Cinema {
                 case 6:
                     removeProjection();
                     break;
-                case 0:
-                    showProjections();
-                    break;
             }
         } else {
             communication.show(getClientUserOptions());
@@ -93,7 +90,7 @@ public class Cinema {
     private void removeProjection() {
         communication.showProjections(movieManager.getAllProjections());
         int allProjectionsLength = movieManager.getAllProjections().size()-1;
-        int projectionIndex = 0;
+        int projectionIndex;
         communication.show("Please enter projection index");
         do {
             projectionIndex = communication.getNumberInput() - 1;
@@ -108,7 +105,7 @@ public class Cinema {
     private void removeMovie() {
         communication.showMovies(movieManager.getAllMovies());
         int allMoviesLength = movieManager.getAllMovies().size()-1;
-        int movieIndex = 0;
+        int movieIndex;
         communication.show("Please enter movie index");
         do {
             movieIndex = communication.getNumberInput() - 1;
@@ -120,13 +117,8 @@ public class Cinema {
         communication.show("The movie was removed successfully");
     }
 
-    private void showProjections() {
-        communication.showProjections(movieManager.getAllProjections());
-
-    }
-
     private void createProjection() {
-        Date projectionDate = null;
+        Date projectionDate;
         communication.showMovies(movieManager.getAllMovies());
         communication.show("Please enter movie index");
         int movieIndex = communication.getNumberInput() - 1;
@@ -149,7 +141,7 @@ public class Cinema {
 
     //when buying a ticket check for index out of bounds
     private void buyTicket() {
-        communication.showProjections(movieManager.getAllProjections());
+      //communication.showProjections(movieManager.getAllProjections());
         communication.showProjections(movieManager.getUpcomingProjections());
         communication.show("Choose projection number");
         int projectionNumber = communication.getNumberInput() - 1;
@@ -170,17 +162,9 @@ public class Cinema {
                 col = communication.getNumberInput();
             }
             chosenProjection.getTheater().occupySeat(row, col);
-
-
+            communication.showTheaterOccupation(chosenProjection);
+            movieManager.saveChanges();
         }
-    }
-
-    //TODO to REMOVE or NOT
-    private Movie choose() {
-        communication.show("Enter movie name");
-        String movie = communication.getTextInput();
-        return movieManager.getMovie(movie);
-
     }
 
     private void initLoginProcess() {
@@ -229,7 +213,6 @@ public class Cinema {
             communication.show("Passwords should match");
         }
     }
-
 
     private String getNonRegisterUserOptions() {
         return "1. Login\n" +
