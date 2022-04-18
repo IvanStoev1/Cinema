@@ -19,6 +19,7 @@ public class TicketPurchaseProcedure {
         communication.show("Choose projection number");
         Projection chosenProjection = getChosenProjection();
         communication.showTheaterOccupation(chosenProjection);
+        communication.show("Number of free tickets:" + " " + chosenProjection.getTheater().freeSeats());
         communication.show("How many tickets do you want");
         int tickets = maxPurchasableTickets(chosenProjection);
         purchaseTicket(chosenProjection, tickets);
@@ -34,9 +35,9 @@ public class TicketPurchaseProcedure {
             int col = getCol(chosenProjection);
             while (chosenProjection.getTheater().isSeatOccupied(row, col)) {
                 System.out.println("This seat is occupied");
-                communication.show("Please enter another row");
+                communication.show("Please enter another one\n" + "Please enter row");
                 row = getRow(chosenProjection);
-                communication.show("Please enter another seat number");
+                communication.show("Please enter seat number");
                 col = getCol(chosenProjection);
             }
             chosenProjection.getTheater().occupySeat(row, col);
@@ -71,9 +72,10 @@ public class TicketPurchaseProcedure {
     private int maxPurchasableTickets(Projection projection) {
         int numberOfFreeTickets = projection.getTheater().freeSeats();
         int tickets = communication.getNumberInput();
-        while (tickets <= numberOfFreeTickets) {
-            tickets = communication.getNumberInput();
+        if(tickets >= numberOfFreeTickets){
+            communication.getNumberInput();
         }
+
         return tickets;
     }
 
@@ -86,8 +88,8 @@ public class TicketPurchaseProcedure {
     }
 
     void printTicket(Ticket[] tickets) {
-        for (int i = 0; i < tickets.length; i++) {
-            communication.printTicket(tickets[i]);
+        for (Ticket ticket : tickets) {
+            communication.printTicket(ticket);
         }
 
     }
