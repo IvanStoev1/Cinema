@@ -39,49 +39,42 @@ public class ConsoleCommManager implements Communication {
 
     @Override
     public double getDecimalInput() {
-        double n = 0;
-        boolean isNumber;
-        do {
+            double n = 0;
             String input = scanner.nextLine();
             try {
                 n = Double.parseDouble(input);
-                isNumber = true;
-            } catch (NumberFormatException e) {
                 if (n <= 0) {
-                    isNumber = true;
                     System.out.println("Enter a positive number");
-                }else {
-                    isNumber = false;
-                    System.out.println("Invalid input, please enter a number");
+                    return getNumberInput();
                 }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input, please enter a number");
+                return getNumberInput();
             }
+
+            return n;
         }
-        while (!(isNumber));
-        return n;
-    }
+
 
 
     @Override
     public int getNumberInput() {
         int n = 0;
-        boolean isNumber;
-        do {
-            String input = scanner.nextLine();
-            try {
-                n = Integer.parseInt(input);
-                isNumber = true;
-            } catch (NumberFormatException e) {
-                if (n <= 0) {
-                    isNumber = true;
-                    System.out.println("Enter a positive number");
-                }else {
-                    isNumber = false;
-                    System.out.println("Invalid input, please enter a number");
-                }
+        String input = scanner.nextLine();
+        try {
+            n = Integer.parseInt(input);
+            if (n <= 0) {
+                System.out.println("Enter a positive number");
+                return getNumberInput();
             }
-        } while (!(isNumber));
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input, please enter a number");
+            return getNumberInput();
+        }
+
         return n;
     }
+
 
     @Override
     public String getTextInput() {
@@ -104,7 +97,7 @@ public class ConsoleCommManager implements Communication {
             date = df.parse(dateInput);
         } catch (ParseException e) {
             printIllegalInputMessage();
-            askForDate();
+            return askForDate();
         }
         return date;
     }
@@ -118,16 +111,17 @@ public class ConsoleCommManager implements Communication {
     @Override
     public void showTheaterOccupation(Projection projection) {
         MovieTheater theater = projection.getTheater();
-        System.out.println("\t\t\t\t\t\t\t\t" + projection.getMovieTitle() + " \n \t\t\t\t\t\t\t\t" + projection.getProjectionDate());
+        System.out.println("\t\t\t\t\t\t\t\t" + projection.getMovieTitle() +
+                " \n \t\t\t\t\t\t\t\t" + projection.getProjectionDate());
         System.out.println("\t\t\t\t\t\t\t\t------------------------------------");
         System.out.println("rows\t\t\t\t\t\t\t\t\t\t   SCREEN \n");
-        for (int i = 0; i <theater.getSeats().length ; i++) {
+        for (int i = 0; i < theater.getSeats().length; i++) {
             System.out.print((i + 1) + "\t\t");
             for (int j = 0; j < theater.getSeats()[i].length; j++) {
                 if (theater.getSeats()[i][j].isTaken()) {
                     System.out.print(theater.getSeats()[i][j].getSymbol() + " | ");
-                }else{
-                    System.out.print(j+1 + " | ");
+                } else {
+                    System.out.print(j + 1 + " | ");
                 }
             }
             System.out.println();
@@ -138,7 +132,7 @@ public class ConsoleCommManager implements Communication {
     @Override
     public void showProjections(List<Projection> projections) {
         for (int i = 0; i < projections.size(); i++) {
-            System.out.print(i+1 + " ");
+            System.out.print(i + 1 + " ");
             System.out.print(projections.get(i).getMovieTitle() + "\t|\t ");
             System.out.println(projections.get(i).getProjectionDate());
 
@@ -148,7 +142,7 @@ public class ConsoleCommManager implements Communication {
     @Override
     public void showMovies(List<Movie> movies) {
         for (int i = 0; i < movies.size(); i++) {
-            System.out.println((i+1) + " " + movies.get(i).getTitle());
+            System.out.println((i + 1) + " " + movies.get(i).getTitle());
         }
     }
 
