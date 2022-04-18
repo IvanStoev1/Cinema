@@ -15,14 +15,18 @@ public class TicketPurchaseProcedure {
     }
 
     void initializePurchase() {
-        communication.showProjections(movieManager.getUpcomingProjections());
-        communication.show("Choose projection number");
-        Projection chosenProjection = getChosenProjection();
-        communication.showTheaterOccupation(chosenProjection);
-        communication.show("How many tickets do you want");
-        int tickets = maxPurchasableTickets(chosenProjection);
-        purchaseTicket(chosenProjection, tickets);
-
+        if (movieManager.getUpcomingProjections().size()!=0) {
+            communication.showProjections(movieManager.getUpcomingProjections());
+            communication.show("Choose projection number");
+            Projection chosenProjection = getChosenProjection();
+            communication.showTheaterOccupation(chosenProjection);
+            communication.show("How many tickets do you want");
+            int tickets = maxPurchasableTickets(chosenProjection);
+            purchaseTicket(chosenProjection, tickets);
+        }else{
+            communication.show("There are no more projections for the today.\n " +
+                    "Please try again tomorrow.");
+        }
     }
 
     private void purchaseTicket(Projection chosenProjection, int tickets) {
@@ -80,6 +84,7 @@ public class TicketPurchaseProcedure {
     private Projection getChosenProjection() {
         int projectionNumber = communication.getNumberInput() - 1;
         while (!(projectionNumber < movieManager.getUpcomingProjections().size())) {
+            communication.show("There is no projection under this number. Try again!");
             projectionNumber = communication.getNumberInput() - 1;
         }
         return movieManager.getUpcomingProjections().get(projectionNumber);

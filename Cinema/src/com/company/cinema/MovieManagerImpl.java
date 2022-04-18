@@ -70,7 +70,7 @@ public class MovieManagerImpl implements MovieManager {
         projections.insert(projection);
     }
 
-    public List<Projection> getUpcomingProjections() {  //TODO  throw exception null or size 0
+    public List<Projection> getUpcomingProjections() {
         Date date = new Date();
         Date endDate = new Date();
         endDate.setHours(23);
