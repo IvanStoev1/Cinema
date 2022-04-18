@@ -72,8 +72,9 @@ public class TicketPurchaseProcedure {
     private int maxPurchasableTickets(Projection projection) {
         int numberOfFreeTickets = projection.getTheater().freeSeats();
         int tickets = communication.getNumberInput();
-        if(tickets >= numberOfFreeTickets){
-            communication.getNumberInput();
+        while(tickets >= numberOfFreeTickets){
+            communication.show("Not that many tickets available. Please enter a smaller amount");
+            tickets = communication.getNumberInput();
         }
 
         return tickets;
