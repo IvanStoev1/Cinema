@@ -59,7 +59,7 @@ public class ConsoleCommManager implements Communication {
 
     @Override
     public int getNumberInput() {
-        int n = 0;
+        int n;
         String input = scanner.nextLine();
         try {
             n = Integer.parseInt(input);
