@@ -21,7 +21,7 @@ public class TicketPurchaseProcedure {
             Projection chosenProjection = getChosenProjection();
             communication.showTheaterOccupation(chosenProjection);
             communication.show("How many tickets do you want");
-            int tickets = maxPurchasableTickets(chosenProjection);
+            int tickets = communication.getNumberInput(); //maxPurchasableTickets(chosenProjection);
             purchaseTicket(chosenProjection, tickets);
         }else{
             communication.show("There are no more projections for the today.\n " +
@@ -48,7 +48,8 @@ public class TicketPurchaseProcedure {
             purchasedTickets[i] = new Ticket(row,col,chosenProjection.getProjectionDate(),chosenProjection.getMovieTitle());
             communication.showTheaterOccupation(chosenProjection);
         }
-        communication.show("Please confirm your purchase - Press 1 to confirm, Press any button to decline");
+        communication.show("Please confirm your purchase - Press 1 to confirm," +
+                " Press any other positive number to decline");
         int choice = communication.getNumberInput();
         if (choice == 1) {
             movieManager.saveChanges(chosenProjection);

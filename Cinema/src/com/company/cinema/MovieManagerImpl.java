@@ -37,7 +37,7 @@ public class MovieManagerImpl implements MovieManager {
         this.projections.overwrite(projections);
     }
 
-    //TODO EXCEPTION NEEDED
+    //TODO throw exception null/ is the method necessary
     @Override
     public Movie getMovie(String title) {
         if (movies.getObject(title) != null) {
@@ -52,7 +52,7 @@ public class MovieManagerImpl implements MovieManager {
 
     }
 
-    //TODO throw exception null
+    //TODO throw exception null/ is the method necessary
     @Override
     public Projection getProjection(String movieTitle, List<Projection> projections, Date projectionDate) {
         Projection selectedProjection;
@@ -107,7 +107,9 @@ public class MovieManagerImpl implements MovieManager {
     @Override
     public void saveChanges(Projection projection) {
         List<Projection> pr = getAllProjections();
-        pr.remove(projectionIndex(projection,pr));
+        if (projectionIndex(projection, pr) != -1) {
+            pr.remove(projectionIndex(projection, pr));
+        }
         pr.add(projection);
         projections.overwrite(pr);
 
@@ -115,11 +117,22 @@ public class MovieManagerImpl implements MovieManager {
 
     private int projectionIndex(Projection projection, List<Projection> pr) {
         for (int i = 0; i < pr.size(); i++) {
-            if(pr.get(i).getMovieTitle().equals(projection.getMovieTitle()) &&
-                    pr.get(i).getProjectionDate().equals(projection.getProjectionDate())){
+            if (pr.get(i).getMovieTitle().equals(projection.getMovieTitle()) &&
+                    pr.get(i).getProjectionDate().equals(projection.getProjectionDate())) {
                 return i;
             }
         }
         return -1;
     }
+
+    private void autoRemovePastProjections(){
+        Date now = new Date();
+        List<Projection> pastProjections = getAllProjections();
+        pastProjections
+                .stream()
+                .filter(projection -> projection.getProjectionDate().after(now))
+                .collect(Collectors.toList());
+        projections.overwrite(pastProjections);
+    }
+
 }

@@ -1,8 +1,9 @@
 package com.company.cinema;
 
+import java.io.Serializable;
 import java.util.Date;
             // should the ticket have a price
-public class Ticket {
+public class Ticket implements Serializable {
 
     private int row;
     private int seat;

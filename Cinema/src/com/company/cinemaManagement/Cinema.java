@@ -72,6 +72,7 @@ public class Cinema {
                 case 6:
                     removeProjection();
                     break;
+                case 7: showAllProjections();
             }
         } else {
             communication.show(getClientUserOptions());
@@ -85,6 +86,10 @@ public class Cinema {
                     break;
             }
         }
+    }
+
+    private void showAllProjections() {
+        communication.showProjections(movieManager.getAllProjections());
     }
 
     private void removeProjection() {
