@@ -16,7 +16,7 @@ public interface MovieManager {
 
     List<Projection> getUpcomingProjections();
 
-    List<Movie>getAllMovies();
+    List<Movie> getAllMovies();
 
     Movie getMovie(int index);
 

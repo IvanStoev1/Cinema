@@ -10,10 +10,10 @@ import java.util.Date;
 
 public class Cinema {
 
-    private AuthManager authentication;
-    private Communication communication;
-    private MovieManager movieManager;
-    private CinemaManagerForms forms;
+    private final AuthManager authentication;
+    private final Communication communication;
+    private final MovieManager movieManager;
+    private final CinemaManagerForms forms;
 
     public Cinema(AuthManager authentication,
                   Communication communication,
@@ -72,7 +72,8 @@ public class Cinema {
                 case 6:
                     removeProjection();
                     break;
-                case 7: showAllProjections();
+                case 7:
+                    showAllProjections();
             }
         } else {
             communication.show(getClientUserOptions());
@@ -94,12 +95,12 @@ public class Cinema {
 
     private void removeProjection() {
         communication.showProjections(movieManager.getAllProjections());
-        int allProjectionsLength = movieManager.getAllProjections().size()-1;
+        int allProjectionsLength = movieManager.getAllProjections().size() - 1;
         int projectionIndex;
         communication.show("Please enter projection index");
         do {
             projectionIndex = communication.getNumberInput() - 1;
-            if (projectionIndex < 0 || projectionIndex > allProjectionsLength){
+            if (projectionIndex < 0 || projectionIndex > allProjectionsLength) {
                 communication.show("Please enter a valid movie index");
             }
         } while (projectionIndex < 0 || projectionIndex > allProjectionsLength);
@@ -109,12 +110,12 @@ public class Cinema {
 
     private void removeMovie() {
         communication.showMovies(movieManager.getAllMovies());
-        int allMoviesLength = movieManager.getAllMovies().size()-1;
+        int allMoviesLength = movieManager.getAllMovies().size() - 1;
         int movieIndex;
         communication.show("Please enter movie index");
         do {
             movieIndex = communication.getNumberInput() - 1;
-            if (movieIndex < 0 || movieIndex > allMoviesLength){
+            if (movieIndex < 0 || movieIndex > allMoviesLength) {
                 communication.show("Please enter a valid movie index");
             }
         } while (movieIndex < 0 || movieIndex > allMoviesLength);
@@ -146,8 +147,8 @@ public class Cinema {
 
     //when buying a ticket check for index out of bounds
     private void buyTicket() {
-       TicketPurchaseProcedure ticketPurchaseProcedure = new TicketPurchaseProcedure(movieManager,communication);
-       ticketPurchaseProcedure.initializePurchase();
+        TicketPurchaseProcedure ticketPurchaseProcedure = new TicketPurchaseProcedure(movieManager, communication);
+        ticketPurchaseProcedure.initializePurchase();
     }
 
     private void initLoginProcess() {

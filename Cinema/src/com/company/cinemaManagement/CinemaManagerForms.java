@@ -6,14 +6,13 @@ import com.company.communication.ConsoleCommManager;
 import java.util.Scanner;
 
 public class CinemaManagerForms {
-    private Scanner scanner;
-    private Communication communicationManager;
-    public CinemaManagerForms(){
-        this.scanner = new Scanner(System.in);
+    private final Communication communicationManager;
+
+    public CinemaManagerForms() {
         this.communicationManager = new ConsoleCommManager();
     }
 
-    public String[] processForm(){
+    public String[] processForm() {
         communicationManager.show("Enter username:");
         String username = communicationManager.getTextInput();
         communicationManager.show("Enter password:");
@@ -23,12 +22,12 @@ public class CinemaManagerForms {
         return new String[]{username, password, repeatPassword};
     }
 
-    public String[] processLoginForm(){
+    public String[] processLoginForm() {
         communicationManager.show("Enter username:");
         String username = communicationManager.getTextInput();
         communicationManager.show("Enter password:");
         String password = communicationManager.getTextInput();
-        return new String[]{username,password};
+        return new String[]{username, password};
     }
 }
 

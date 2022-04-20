@@ -13,7 +13,7 @@ public class AuthenticationManagerImpl implements AuthManager {
 
     @Override
     public boolean registerClient(String clientName, String clientPassword) {
-        if(database.userExists(clientName,clientPassword)) {
+        if (database.userExists(clientName, clientPassword)) {
             return false;
         }
 
@@ -25,7 +25,7 @@ public class AuthenticationManagerImpl implements AuthManager {
 
     @Override
     public boolean registerAdmin(String username, String password) {
-        if(database.userExists(username,password)) {
+        if (database.userExists(username, password)) {
             return false;
         }
 
@@ -37,7 +37,7 @@ public class AuthenticationManagerImpl implements AuthManager {
     @Override
     public LoginStatus login(String username, String password) {
         User user = database.getObject(username);
-        if(user != null && user.getPassword().equals(password)) {
+        if (user != null && user.getPassword().equals(password)) {
             loggedUser = user;
             return user instanceof Client ? LoginStatus.SUCCESS_CLIENT : LoginStatus.SUCCESS_ADMIN;
         }

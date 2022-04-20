@@ -45,7 +45,6 @@ public class UserDao extends FIleIO<User> {
     }
 
     private void insertDefaultAdmin() {
-
         insert(new Admin("admin", "admin"));
     }
 }

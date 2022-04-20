@@ -8,11 +8,10 @@ import java.util.Date;
 
 public class Projection implements Serializable {
 
-    private String movieTitle;
-    private Date projectionDate;
-    private Ticket[] tickets;
-    private MovieTheater theater;
-
+    private final String movieTitle;
+    private final Date projectionDate;
+    private final Ticket[] tickets;
+    private final MovieTheater theater;
 
 
     private int ticketCount;
@@ -21,12 +20,12 @@ public class Projection implements Serializable {
         this.movieTitle = movieTitle.getTitle();
         this.projectionDate = date;
         this.theater = new MovieTheater();
-        this.tickets = new Ticket[(int)theater.getTheaterCapacity()];
+        this.tickets = new Ticket[(int) theater.getTheaterCapacity()];
         this.ticketCount = 0;
     }
 
-    public void addTicket(int row, int seat){
-        Ticket ticket = new Ticket(row,seat,projectionDate,movieTitle);
+    public void addTicket(int row, int seat) {
+        Ticket ticket = new Ticket(row, seat, projectionDate, movieTitle);
         tickets[ticketCount] = ticket;
         ticketCount++;
     }

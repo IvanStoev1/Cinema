@@ -15,30 +15,20 @@ public class TicketPurchaseProcedure {
     }
 
     void initializePurchase() {
-<<<<<<< HEAD
-        if (movieManager.getUpcomingProjections().size()!=0) {
+        if (movieManager.getUpcomingProjections().size() != 0) {
             communication.showProjections(movieManager.getUpcomingProjections());
             communication.show("Choose projection number");
             Projection chosenProjection = getChosenProjection();
             communication.showTheaterOccupation(chosenProjection);
+            communication.show("Number of free tickets:" + " " + chosenProjection.getTheater().freeSeats());
             communication.show("How many tickets do you want");
-            int tickets = communication.getNumberInput(); //maxPurchasableTickets(chosenProjection);
+            int tickets = maxPurchasableTickets(chosenProjection);
             purchaseTicket(chosenProjection, tickets);
-        }else{
+        } else {
             communication.show("There are no more projections for the today.\n " +
                     "Please try again tomorrow.");
         }
-=======
-        communication.showProjections(movieManager.getUpcomingProjections());
-        communication.show("Choose projection number");
-        Projection chosenProjection = getChosenProjection();
-        communication.showTheaterOccupation(chosenProjection);
-        communication.show("Number of free tickets:" + " " + chosenProjection.getTheater().freeSeats());
-        communication.show("How many tickets do you want");
-        int tickets = maxPurchasableTickets(chosenProjection);
-        purchaseTicket(chosenProjection, tickets);
 
->>>>>>> 77bdbde779e279282c8513f1c318e7c8dbb24fe6
     }
 
     private void purchaseTicket(Projection chosenProjection, int tickets) {
@@ -56,8 +46,8 @@ public class TicketPurchaseProcedure {
                 col = getCol(chosenProjection);
             }
             chosenProjection.getTheater().occupySeat(row, col);
-            chosenProjection.addTicket(row,col);
-            purchasedTickets[i] = new Ticket(row,col,chosenProjection.getProjectionDate(),chosenProjection.getMovieTitle());
+            chosenProjection.addTicket(row, col);
+            purchasedTickets[i] = new Ticket(row, col, chosenProjection.getProjectionDate(), chosenProjection.getMovieTitle());
             communication.showTheaterOccupation(chosenProjection);
         }
         communication.show("Please confirm your purchase - Press 1 to confirm," +
@@ -88,7 +78,7 @@ public class TicketPurchaseProcedure {
     private int maxPurchasableTickets(Projection projection) {
         int numberOfFreeTickets = projection.getTheater().freeSeats();
         int tickets = communication.getNumberInput();
-        while(tickets >= numberOfFreeTickets){
+        while (tickets >= numberOfFreeTickets) {
             communication.show("Not that many tickets available. Please enter a smaller amount");
             tickets = communication.getNumberInput();
         }
