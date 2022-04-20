@@ -26,6 +26,6 @@ public interface MovieManager {
 
     void removeProjection(int projectionIndex);
 
-
     void saveChanges(Projection projection);
+
 }
