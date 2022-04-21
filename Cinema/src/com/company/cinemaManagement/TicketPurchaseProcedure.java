@@ -1,5 +1,6 @@
 package com.company.cinemaManagement;
 
+import com.company.cinema.MovieDao;
 import com.company.cinema.MovieManager;
 import com.company.cinema.Projection;
 import com.company.cinema.Ticket;
@@ -15,12 +16,8 @@ public class TicketPurchaseProcedure {
     }
 
     void initializePurchase() {
-<<<<<<< HEAD
 
-        if (movieManager.getUpcomingProjections().size()!=0) {
-=======
         if (movieManager.getUpcomingProjections().size() != 0) {
->>>>>>> 6aece05a5f2f0bb52fbf79602f7a277b599ad44a
             communication.showProjections(movieManager.getUpcomingProjections());
             communication.show("Choose projection number");
             Projection chosenProjection = getChosenProjection();
@@ -33,16 +30,12 @@ public class TicketPurchaseProcedure {
             communication.show("There are no more projections for the today.\n " +
                     "Please try again tomorrow.");
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> 6aece05a5f2f0bb52fbf79602f7a277b599ad44a
     }
 
     private void purchaseTicket(Projection chosenProjection, int tickets) {
         Ticket[] purchasedTickets = new Ticket[tickets];
         for (int i = 0; i < tickets; i++) {
-            communication.show("Please enter row");
+            communication.show("Please enter row number");
             int row = getRow(chosenProjection);
             communication.show("Please enter seat number");
             int col = getCol(chosenProjection);
@@ -70,6 +63,7 @@ public class TicketPurchaseProcedure {
     private int getCol(Projection projection) {
         int col = communication.getNumberInput() - 1;
         while (!(col < projection.getTheater().getSeats()[0].length)) {
+            communication.show("There isn't such seat number. Please enter an existing seat number");
             col = communication.getNumberInput() - 1;
         }
         return col;
@@ -78,6 +72,7 @@ public class TicketPurchaseProcedure {
     private int getRow(Projection projection) {
         int row = communication.getNumberInput() - 1;
         while (!(row < projection.getTheater().getSeats().length)) {
+            communication.show("There isn't such row. Please enter an existing row number.");
             row = communication.getNumberInput() - 1;
         }
         return row;

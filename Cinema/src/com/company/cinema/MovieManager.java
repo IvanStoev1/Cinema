@@ -24,4 +24,6 @@ public interface MovieManager {
 
     void saveChanges(Projection projection);
 
+    void autoRemovePastProjections();
+
 }

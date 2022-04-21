@@ -13,8 +13,8 @@ public class MovieManagerImpl implements MovieManager {
 
 
     public MovieManagerImpl() {
-        this.movies = new MovieDao();
-        this.projections = new ProjectionDao();
+        this.movies = MovieDao.getInstance();
+        this.projections = ProjectionDao.getInstance();
     }
 
     @Override
@@ -97,12 +97,12 @@ public class MovieManagerImpl implements MovieManager {
         return -1;
     }
 
-    private void autoRemovePastProjections() {
-        Date now = new Date();
-        List<Projection> pastProjections = getAllProjections();
+    public void autoRemovePastProjections() {
+        Date currentDateTime = new Date();
+        List<Projection> pastProjections = projections.findAll();
         pastProjections
                 .stream()
-                .filter(projection -> projection.getProjectionDate().after(now))
+                .filter(projection -> projection.getProjectionDate().before(currentDateTime))
                 .collect(Collectors.toList());
         projections.overwrite(pastProjections);
     }

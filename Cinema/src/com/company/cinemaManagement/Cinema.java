@@ -26,6 +26,7 @@ public class Cinema {
 
     public void initializeProgram() {
         while (true) {
+            movieManager.autoRemovePastProjections();
             if (authentication.hasLoggedUser()) {
                 processLoggedUserOptions();
             } else {
@@ -145,7 +146,6 @@ public class Cinema {
 
     }
 
-    //when buying a ticket check for index out of bounds
     private void buyTicket() {
         TicketPurchaseProcedure ticketPurchaseProcedure = new TicketPurchaseProcedure(movieManager, communication);
         ticketPurchaseProcedure.initializePurchase();
@@ -215,7 +215,8 @@ public class Cinema {
                 3. Add movie
                 4. Remove movie
                 5. Create projection
-                6. Remove projection""";
+                6. Remove projection
+                7. Show all projections""";
     }
 
 }

@@ -4,8 +4,21 @@ import com.company.auth.User;
 import com.company.communication.FIleIO;
 
 import java.util.Optional;
-//make Singleton pattern
+
 public class MovieDao extends FIleIO<Movie> {
+
+    private static MovieDao instance = new MovieDao();
+
+    private MovieDao(){
+
+    }
+
+    public static MovieDao getInstance(){
+        if (instance == null){
+            instance = new MovieDao();
+        }
+        return instance;
+    }
 
     @Override
     protected String getFileName() {
