@@ -7,7 +7,7 @@ import com.company.communication.ConsoleCommManager;
 
 public class CinemaCommunicatorImpl {
 
-    private  Communication communicationManager;
+    private final Communication communicationManager;
 
     public CinemaCommunicatorImpl() {
         this.communicationManager = new ConsoleCommManager();

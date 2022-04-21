@@ -5,11 +5,11 @@ import java.util.Date;
             // should the ticket have a price
 public class Ticket implements Serializable {
 
-    private int row;
-    private int seat;
-    private Date projectionDate;
-    private Date currentDate;
-    private String movieTitle;
+    private final int row;
+    private final int seat;
+    private final Date projectionDate;
+    private final Date currentDate;
+    private final String movieTitle;
 
     public Ticket(int row, int seat, Date date, String movieTitle) {
         this.row = row;
@@ -20,13 +20,13 @@ public class Ticket implements Serializable {
     }
 
     @Override
-    public String toString() {  //TODO format
+    public String toString() {
         return "Ticket{" +
-                "row=" + row +
-                ", seat=" + seat +
-                ", movieDate=" + projectionDate +
-                ", currentDate=" + currentDate +
-                ", movieTitle='" + movieTitle + '\'' +
+                " Row " + row +
+                ", Seat " + seat +
+                ", Movie date " + projectionDate +
+                ", Purchase date " + currentDate +
+                ", Title '" + movieTitle + '\'' +
                 '}';
     }
 }

@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 public class MovieManagerImpl implements MovieManager {
 
-    private MovieDao movies;
-    private ProjectionDao projections;
+    private final MovieDao movies;
+    private final ProjectionDao projections;
 
 
     public MovieManagerImpl() {
@@ -37,33 +37,6 @@ public class MovieManagerImpl implements MovieManager {
         this.projections.overwrite(projections);
     }
 
-    //TODO throw exception null/ is the method necessary
-    @Override
-    public Movie getMovie(String title) {
-        if (movies.getObject(title) != null) {
-            return movies.
-                    findAll()
-                    .stream()
-                    .filter(movie -> movie.getTitle().equals(title))
-                    .findFirst()
-                    .get();
-        }
-        return null;
-
-    }
-
-    //TODO throw exception null/ is the method necessary
-    @Override
-    public Projection getProjection(String movieTitle, List<Projection> projections, Date projectionDate) {
-        Projection selectedProjection;
-        for (Projection projection : projections) {
-            if (projection.getMovieTitle().equals(movieTitle) && projection.getProjectionDate() == projectionDate) {
-                return selectedProjection = projection;
-            }
-        }
-        return null;
-    }
-
     @Override
     public void addProjection(Movie movieTitle, Date date) {
         Projection projection = new Projection(movieTitle, date);
@@ -75,7 +48,7 @@ public class MovieManagerImpl implements MovieManager {
         Date endDate = new Date();
         endDate.setHours(23);
         endDate.setMinutes(59);
-        List<Projection> upcomingProjections = projections
+        return projections
                 .findAll()
                 .stream()
                 .filter(projection -> projection.getProjectionDate().after(date)
@@ -86,7 +59,6 @@ public class MovieManagerImpl implements MovieManager {
                         return o1.getProjectionDate().compareTo(o2.getProjectionDate());
                     }
                 }).collect(Collectors.toList());
-        return upcomingProjections;
     }
 
     @Override
@@ -125,7 +97,7 @@ public class MovieManagerImpl implements MovieManager {
         return -1;
     }
 
-    private void autoRemovePastProjections(){
+    private void autoRemovePastProjections() {
         Date now = new Date();
         List<Projection> pastProjections = getAllProjections();
         pastProjections

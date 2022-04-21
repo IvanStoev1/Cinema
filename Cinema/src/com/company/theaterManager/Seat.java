@@ -3,8 +3,8 @@ package com.company.theaterManager;
 import java.io.Serializable;
 
 public class Seat implements Serializable {
-    private int row;
-    private int col;
+    private final int row;
+    private final int col;
     private boolean isTaken;
 
     public Seat(int row, int col) {
@@ -29,8 +29,8 @@ public class Seat implements Serializable {
         isTaken = taken;
     }
 
-    public char getSymbol(){
-        if (isTaken){
+    public char getSymbol() {
+        if (isTaken) {
             return '■';
         }
         return '□';
