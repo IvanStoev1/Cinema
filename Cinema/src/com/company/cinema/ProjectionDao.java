@@ -6,6 +6,19 @@ import java.util.Optional;
 
 public class ProjectionDao extends FIleIO<Projection> {
 
+    private static ProjectionDao instance;
+
+    private ProjectionDao(){
+
+    }
+
+    public static ProjectionDao getInstance(){
+        if (instance == null){
+            instance = new ProjectionDao();
+        }
+        return instance;
+    }
+
     @Override
     protected String getFileName() {
         return "projections.db";
