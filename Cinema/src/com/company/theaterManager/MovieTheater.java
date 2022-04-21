@@ -12,11 +12,11 @@ public class MovieTheater implements Serializable {
         initializeSeats();
     }
 
-    private Seat[][] initializeSeats(){
+    private Seat[][] initializeSeats() {
         seats = new Seat[12][20];
         for (int i = 0; i < seats.length; i++) {
             for (int j = 0; j < seats[i].length; j++) {
-                seats[i][j] = new Seat(i,j);
+                seats[i][j] = new Seat(i, j);
             }
         }
         return seats;
@@ -34,11 +34,11 @@ public class MovieTheater implements Serializable {
         seats[row][col].setTaken(true);
     }
 
-    public int freeSeats(){
+    public int freeSeats() {
         int freeSeats = 0;
         for (int i = 0; i < seats.length; i++) {
             for (int j = 0; j < seats[i].length; j++) {
-                if(!(isSeatOccupied(i,j))){
+                if (!(isSeatOccupied(i, j))) {
                     freeSeats++;
                 }
             }

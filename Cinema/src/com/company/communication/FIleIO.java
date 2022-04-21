@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class FIleIO<T>implements Serializable{
+public abstract class FIleIO<T> implements Serializable {
 
     public void insert(T data) {
         List<T> allDataPoints = load();
@@ -27,7 +27,8 @@ public abstract class FIleIO<T>implements Serializable{
             System.out.println(e);
         }
     }
-//Fix NEEDED
+
+    //Fix NEEDED
     private List<T> load() {
         List<T> data = new ArrayList<>();
         try (ObjectInputStream inputStream =

@@ -17,10 +17,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleCommManager implements Communication {
-    static DateTimeFormatter dateFormatter =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                    .withResolverStyle(ResolverStyle.STRICT);
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public ConsoleCommManager() {
         this.scanner = new Scanner(System.in);
@@ -39,22 +36,21 @@ public class ConsoleCommManager implements Communication {
 
     @Override
     public double getDecimalInput() {
-            double n = 0;
-            String input = scanner.nextLine();
-            try {
-                n = Double.parseDouble(input);
-                if (n <= 0) {
-                    System.out.println("Enter a positive number");
-                    return getNumberInput();
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input, please enter a number");
+        double n = 0;
+        String input = scanner.nextLine();
+        try {
+            n = Double.parseDouble(input);
+            if (n <= 0) {
+                System.out.println("Enter a positive number");
                 return getNumberInput();
             }
-
-            return n;
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input, please enter a number");
+            return getNumberInput();
         }
 
+        return n;
+    }
 
 
     @Override

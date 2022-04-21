@@ -14,13 +14,13 @@ public class MovieDao extends FIleIO<Movie> {
 
     @Override
     protected Movie getObject(String object) {
-            Optional<Movie> first =
-                    findAll()
-                            .stream()
-                            .filter(movie -> movie.getTitle().equals(object))
-                            .findFirst();
+        Optional<Movie> first =
+                findAll()
+                        .stream()
+                        .filter(movie -> movie.getTitle().equals(object))
+                        .findFirst();
 
-            return first.orElse(null);
+        return first.orElse(null);
     }
 
 }

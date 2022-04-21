@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private static int userCount = 0;
-    private long id;
-    private String username;
-    private String password;
+    private final long id;
+    private final String username;
+    private final String password;
 
     public User(String username, String password) {
         userCount++;
