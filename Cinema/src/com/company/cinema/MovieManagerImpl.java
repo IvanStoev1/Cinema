@@ -37,32 +37,6 @@ public class MovieManagerImpl implements MovieManager {
         this.projections.overwrite(projections);
     }
 
-    //TODO throw exception null/ is the method necessary
-    @Override
-    public Movie getMovie(String title) {
-        if (movies.getObject(title) != null) {
-            return movies.
-                    findAll()
-                    .stream()
-                    .filter(movie -> movie.getTitle().equals(title))
-                    .findFirst()
-                    .get();
-        }
-        return null;
-
-    }
-
-    //TODO throw exception null/ is the method necessary
-    @Override
-    public Projection getProjection(String movieTitle, List<Projection> projections, Date projectionDate) {
-        for (Projection projection : projections) {
-            if (projection.getMovieTitle().equals(movieTitle) && projection.getProjectionDate() == projectionDate) {
-                return projection;
-            }
-        }
-        return null;
-    }
-
     @Override
     public void addProjection(Movie movieTitle, Date date) {
         Projection projection = new Projection(movieTitle, date);

@@ -8,10 +8,6 @@ public interface MovieManager {
 
     void addMovie(String title, String description);
 
-    Movie getMovie(String title);
-
-    Projection getProjection(String movieTitle, List<Projection> projections, Date projectionDate);
-
     void addProjection(Movie movieTitle, Date date);
 
     List<Projection> getUpcomingProjections();
