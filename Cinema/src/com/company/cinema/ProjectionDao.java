@@ -3,7 +3,7 @@ package com.company.cinema;
 import com.company.communication.FIleIO;
 
 import java.util.Optional;
-
+//make Singleton pattern
 public class ProjectionDao extends FIleIO<Projection> {
 
     @Override

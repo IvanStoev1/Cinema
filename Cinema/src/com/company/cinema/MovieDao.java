@@ -4,7 +4,7 @@ import com.company.auth.User;
 import com.company.communication.FIleIO;
 
 import java.util.Optional;
-
+//make Singleton pattern
 public class MovieDao extends FIleIO<Movie> {
 
     @Override
