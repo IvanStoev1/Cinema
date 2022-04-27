@@ -12,8 +12,8 @@ public class Ticket implements Serializable {
     private final String movieTitle;
 
     public Ticket(int row, int seat, Date date, String movieTitle) {
-        this.row = row;
-        this.seat = seat;
+        this.row = row + 1;
+        this.seat = seat + 1;
         this.projectionDate = date;
         this.movieTitle = movieTitle;
         this.currentDate = new Date();
