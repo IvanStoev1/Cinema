@@ -2,9 +2,8 @@ package com.company.cinema;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-public interface MovieManager {
+public interface DatabaseManager {
 
     void addMovie(String title, String description);
 

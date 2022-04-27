@@ -1,4 +1,4 @@
-package com.company.theaterManager;
+package com.company.cinema;
 
 import java.io.Serializable;
 

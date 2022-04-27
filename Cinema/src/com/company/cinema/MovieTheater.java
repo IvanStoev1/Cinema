@@ -1,6 +1,4 @@
-package com.company.theaterManager;
-
-import com.company.cinema.Projection;
+package com.company.cinema;
 
 import java.io.Serializable;
 import java.util.Arrays;

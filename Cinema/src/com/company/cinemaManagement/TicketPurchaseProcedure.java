@@ -1,23 +1,23 @@
 package com.company.cinemaManagement;
 
-import com.company.cinema.MovieManager;
+import com.company.cinema.DatabaseManager;
 import com.company.cinema.Projection;
 import com.company.cinema.Ticket;
 import com.company.communication.Communication;
 
 public class TicketPurchaseProcedure {
-    MovieManager movieManager;
+    DatabaseManager databaseManager;
     Communication communication;
 
-    public TicketPurchaseProcedure(MovieManager movieManager, Communication communication) {
-        this.movieManager = movieManager;
+    public TicketPurchaseProcedure(DatabaseManager databaseManager, Communication communication) {
+        this.databaseManager = databaseManager;
         this.communication = communication;
     }
 
     void initializePurchase() {
 
-        if (movieManager.getUpcomingProjections().size() != 0) {
-            communication.showProjections(movieManager.getUpcomingProjections());
+        if (databaseManager.getUpcomingProjections().size() != 0) {
+            communication.showProjections(databaseManager.getUpcomingProjections());
             communication.show("Choose projection number");
             Projection chosenProjection = getChosenProjection();
             communication.showTheaterOccupation(chosenProjection);
@@ -26,7 +26,7 @@ public class TicketPurchaseProcedure {
             int tickets = maxPurchasableTickets(chosenProjection);
             purchaseTicket(chosenProjection, tickets);
         } else {
-            communication.show("There are no more projections for the today.\n " +
+            communication.show("There are no more projections for today.\n " +
                     "Please try again tomorrow.");
         }
     }
@@ -56,7 +56,7 @@ public class TicketPurchaseProcedure {
                 " Press any other positive number to decline");
         int confirmationChoice = communication.getNumberInput();
         if (confirmationChoice == 1) {
-            movieManager.saveChanges(chosenProjection);
+            databaseManager.saveChanges(chosenProjection);
             printTicket(purchasedTickets);
         }
     }
@@ -92,11 +92,11 @@ public class TicketPurchaseProcedure {
 
     private Projection getChosenProjection() {
         int projectionNumber = communication.getNumberInput() - 1;
-        while (!(projectionNumber < movieManager.getUpcomingProjections().size())) {
+        while (!(projectionNumber < databaseManager.getUpcomingProjections().size())) {
             communication.show("There is no projection under this number. Try again!");
             projectionNumber = communication.getNumberInput() - 1;
         }
-        return movieManager.getUpcomingProjections().get(projectionNumber);
+        return databaseManager.getUpcomingProjections().get(projectionNumber);
     }
 
     private void printTicket(Ticket[] tickets) {
