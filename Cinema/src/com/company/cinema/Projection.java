@@ -1,7 +1,5 @@
 package com.company.cinema;
 
-import com.company.theaterManager.MovieTheater;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;

@@ -12,21 +12,21 @@ public class Cinema {
 
     private final AuthManager authentication;
     private final Communication communication;
-    private final MovieManager movieManager;
+    private final DatabaseManager databaseManager;
     private final CinemaManagerForms forms;
 
     public Cinema(AuthManager authentication,
                   Communication communication,
-                  MovieManager movieManager) {
+                  DatabaseManager databaseManager) {
         this.authentication = authentication;
         this.communication = communication;
-        this.movieManager = movieManager;
+        this.databaseManager = databaseManager;
         this.forms = new CinemaManagerForms();
     }
 
     public void initializeProgram() {
         while (true) {
-            movieManager.autoRemovePastProjections();
+            databaseManager.autoRemovePastProjections();
             if (authentication.hasLoggedUser()) {
                 processLoggedUserOptions();
             } else {
@@ -46,6 +46,7 @@ public class Cinema {
             case 2:
                 initCreateClientProcess();
                 break;
+            default:communication.show("No such option");
         }
 
     }
@@ -75,6 +76,7 @@ public class Cinema {
                     break;
                 case 7:
                     showAllProjections();
+                default:communication.show("No such option");
             }
         } else {
             communication.show(getClientUserOptions());
@@ -138,17 +140,17 @@ public class Cinema {
     }
 
     private void showAllProjections() {
-        int projectionsLength = movieManager.getAllProjections().size();
+        int projectionsLength = databaseManager.getAllProjections().size();
         if (projectionsLength > 0) {
-            communication.showProjections(movieManager.getAllProjections());
+            communication.showProjections(databaseManager.getAllProjections());
         } else {
             communication.show("There are no projections");
         }
     }
 
     private void removeProjection() {
-        communication.showProjections(movieManager.getAllProjections());
-        int allProjectionsLength = movieManager.getAllProjections().size() - 1;
+        communication.showProjections(databaseManager.getAllProjections());
+        int allProjectionsLength = databaseManager.getAllProjections().size() - 1;
         int projectionIndex;
         communication.show("Please enter projection index");
         do {
@@ -157,13 +159,13 @@ public class Cinema {
                 communication.show("Please enter a valid movie index");
             }
         } while (projectionIndex < 0 || projectionIndex > allProjectionsLength);
-        movieManager.removeProjection(projectionIndex);
+        databaseManager.removeProjection(projectionIndex);
         communication.show("The projection was removed successfully");
     }
 
     private void removeMovie() {
-        communication.showMovies(movieManager.getAllMovies());
-        int allMoviesLength = movieManager.getAllMovies().size() - 1;
+        communication.showMovies(databaseManager.getAllMovies());
+        int allMoviesLength = databaseManager.getAllMovies().size() - 1;
         int movieIndex;
         communication.show("Please enter movie index");
         do {
@@ -172,21 +174,21 @@ public class Cinema {
                 communication.show("Please enter a valid movie index");
             }
         } while (movieIndex < 0 || movieIndex > allMoviesLength);
-        movieManager.removeMovie(movieIndex);
+        databaseManager.removeMovie(movieIndex);
         communication.show("The movie was removed successfully");
     }
 
     private void createProjection() {
-        int movieLength = movieManager.getAllMovies().size();
+        int movieLength = databaseManager.getAllMovies().size();
         if (movieLength > 0) {
             Date projectionDate;
-            communication.showMovies(movieManager.getAllMovies());
+            communication.showMovies(databaseManager.getAllMovies());
             communication.show("Please enter movie index");
             int movieIndex = communication.getNumberInput() - 1;
-            Movie chosenMovie = movieManager.getMovie(movieIndex);
+            Movie chosenMovie = databaseManager.getMovie(movieIndex);
             communication.show("Enter date");
             projectionDate = communication.askForDate();
-            movieManager.addProjection(chosenMovie, projectionDate);
+            databaseManager.addProjection(chosenMovie, projectionDate);
             System.out.println(chosenMovie + " \n" + projectionDate);
         } else {
             communication.show("There are no movies. Please first enter a movie. ");
@@ -200,12 +202,12 @@ public class Cinema {
         String movieTitle = communication.getTextInput();
         communication.show("Enter movie description");
         String description = communication.getTextInput();
-        movieManager.addMovie(movieTitle, description);
+        databaseManager.addMovie(movieTitle, description);
 
     }
 
     private void buyTicket() {
-        TicketPurchaseProcedure ticketPurchaseProcedure = new TicketPurchaseProcedure(movieManager, communication);
+        TicketPurchaseProcedure ticketPurchaseProcedure = new TicketPurchaseProcedure(databaseManager, communication);
         ticketPurchaseProcedure.initializePurchase();
     }
 

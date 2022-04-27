@@ -1,18 +1,17 @@
 package com.company.cinema;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MovieManagerImpl implements MovieManager {
+public class DatabaseManagerImpl implements DatabaseManager {
 
     private final MovieDao movies;
     private final ProjectionDao projections;
 
 
-    public MovieManagerImpl() {
+    public DatabaseManagerImpl() {
         this.movies = MovieDao.getInstance();
         this.projections = ProjectionDao.getInstance();
     }

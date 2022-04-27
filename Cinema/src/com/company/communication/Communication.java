@@ -12,19 +12,11 @@ public interface Communication {
 
     void show(String text);
 
-    void show(Number number);
-
-    double getDecimalInput();
-
     int getNumberInput();
 
     String getTextInput();
 
-    void show(String[][] matrix);
-
     Date askForDate();
-
-    void printDate(Date date);
 
     void showTheaterOccupation(Projection projection);
 

@@ -2,7 +2,7 @@ package com.company.cinema;
 
 import java.io.Serializable;
 import java.util.Date;
-            // should the ticket have a price
+
 public class Ticket implements Serializable {
 
     private final int row;

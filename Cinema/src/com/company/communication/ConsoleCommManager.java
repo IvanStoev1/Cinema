@@ -3,7 +3,7 @@ package com.company.communication;
 import com.company.cinema.Movie;
 import com.company.cinema.Projection;
 import com.company.cinema.Ticket;
-import com.company.theaterManager.MovieTheater;
+import com.company.cinema.MovieTheater;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,31 +23,6 @@ public class ConsoleCommManager implements Communication {
     public void show(String text) {
         System.out.println(text);
     }
-
-    @Override
-    public void show(Number number) {
-        System.out.println(number);
-
-    }
-
-    @Override
-    public double getDecimalInput() {
-        double n = 0;
-        String input = scanner.nextLine();
-        try {
-            n = Double.parseDouble(input);
-            if (n <= 0) {
-                System.out.println("Enter a positive number");
-                return getNumberInput();
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input, please enter a number");
-            return getNumberInput();
-        }
-
-        return n;
-    }
-
 
     @Override
     public int getNumberInput() {
@@ -74,11 +49,6 @@ public class ConsoleCommManager implements Communication {
     }
 
     @Override
-    public void show(String[][] matrix) {
-
-    }
-
-    @Override
     public Date askForDate() {
         Date date = null;
         System.out.print("Order date in format DD/MM/YY HH:mm : ");
@@ -92,12 +62,6 @@ public class ConsoleCommManager implements Communication {
             return askForDate();
         }
         return date;
-    }
-
-
-    @Override
-    public void printDate(Date date) {
-        System.out.println(date.toString());
     }
 
     @Override
