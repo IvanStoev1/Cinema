@@ -35,13 +35,13 @@ public class UserDao extends FIleIO<User> {
 
 
     public boolean userExists(String username, String password) {
-        Optional<User> first = findAll()
+        Optional<User> existingUser = findAll()
                 .stream()
                 .filter(user -> user.getUsername().equals(username)
                         && user.getPassword().equals(password))
                 .findFirst();
 
-        return first.isPresent();
+        return existingUser.isPresent();
     }
 
     private void insertDefaultAdmin() {

@@ -34,7 +34,7 @@ public class MovieTheater implements Serializable {
         seats[row][col].setTaken(true);
     }
 
-    public int freeSeats() {
+    public int seeFreeSeats() {
         int freeSeats = 0;
         for (int i = 0; i < seats.length; i++) {
             for (int j = 0; j < seats[i].length; j++) {

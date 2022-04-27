@@ -90,67 +90,6 @@ public class Cinema {
         }
     }
 
-    private void showAllProjections() {
-        communication.showProjections(movieManager.getAllProjections());
-    }
-
-    private void removeProjection() {
-        communication.showProjections(movieManager.getAllProjections());
-        int allProjectionsLength = movieManager.getAllProjections().size() - 1;
-        int projectionIndex;
-        communication.show("Please enter projection index");
-        do {
-            projectionIndex = communication.getNumberInput() - 1;
-            if (projectionIndex < 0 || projectionIndex > allProjectionsLength) {
-                communication.show("Please enter a valid movie index");
-            }
-        } while (projectionIndex < 0 || projectionIndex > allProjectionsLength);
-        movieManager.removeProjection(projectionIndex);
-        communication.show("The projection was removed successfully");
-    }
-
-    private void removeMovie() {
-        communication.showMovies(movieManager.getAllMovies());
-        int allMoviesLength = movieManager.getAllMovies().size() - 1;
-        int movieIndex;
-        communication.show("Please enter movie index");
-        do {
-            movieIndex = communication.getNumberInput() - 1;
-            if (movieIndex < 0 || movieIndex > allMoviesLength) {
-                communication.show("Please enter a valid movie index");
-            }
-        } while (movieIndex < 0 || movieIndex > allMoviesLength);
-        movieManager.removeMovie(movieIndex);
-        communication.show("The movie was removed successfully");
-    }
-
-    private void createProjection() {
-        Date projectionDate;
-        communication.showMovies(movieManager.getAllMovies());
-        communication.show("Please enter movie index");
-        int movieIndex = communication.getNumberInput() - 1;
-        Movie chosenMovie = movieManager.getMovie(movieIndex);
-        communication.show("Enter date");
-        projectionDate = communication.askForDate();
-        movieManager.addProjection(chosenMovie, projectionDate);
-        System.out.println(chosenMovie + " \n" + projectionDate);
-
-    }
-
-    private void addMovie() {
-        communication.show("Please enter movie title");
-        String movieTitle = communication.getTextInput();
-        communication.show("Enter movie description");
-        String description = communication.getTextInput();
-        movieManager.addMovie(movieTitle, description);
-
-    }
-
-    private void buyTicket() {
-        TicketPurchaseProcedure ticketPurchaseProcedure = new TicketPurchaseProcedure(movieManager, communication);
-        ticketPurchaseProcedure.initializePurchase();
-    }
-
     private void initLoginProcess() {
         String[] input = this.forms.processLoginForm();
         String username = input[0];
@@ -196,6 +135,78 @@ public class Cinema {
         } else {
             communication.show("Passwords should match");
         }
+    }
+
+    private void showAllProjections() {
+        int projectionsLength = movieManager.getAllProjections().size();
+        if (projectionsLength > 0) {
+            communication.showProjections(movieManager.getAllProjections());
+        } else {
+            communication.show("There are no projections");
+        }
+    }
+
+    private void removeProjection() {
+        communication.showProjections(movieManager.getAllProjections());
+        int allProjectionsLength = movieManager.getAllProjections().size() - 1;
+        int projectionIndex;
+        communication.show("Please enter projection index");
+        do {
+            projectionIndex = communication.getNumberInput() - 1;
+            if (projectionIndex < 0 || projectionIndex > allProjectionsLength) {
+                communication.show("Please enter a valid movie index");
+            }
+        } while (projectionIndex < 0 || projectionIndex > allProjectionsLength);
+        movieManager.removeProjection(projectionIndex);
+        communication.show("The projection was removed successfully");
+    }
+
+    private void removeMovie() {
+        communication.showMovies(movieManager.getAllMovies());
+        int allMoviesLength = movieManager.getAllMovies().size() - 1;
+        int movieIndex;
+        communication.show("Please enter movie index");
+        do {
+            movieIndex = communication.getNumberInput() - 1;
+            if (movieIndex < 0 || movieIndex > allMoviesLength) {
+                communication.show("Please enter a valid movie index");
+            }
+        } while (movieIndex < 0 || movieIndex > allMoviesLength);
+        movieManager.removeMovie(movieIndex);
+        communication.show("The movie was removed successfully");
+    }
+
+    private void createProjection() {
+        int movieLength = movieManager.getAllMovies().size();
+        if (movieLength > 0) {
+            Date projectionDate;
+            communication.showMovies(movieManager.getAllMovies());
+            communication.show("Please enter movie index");
+            int movieIndex = communication.getNumberInput() - 1;
+            Movie chosenMovie = movieManager.getMovie(movieIndex);
+            communication.show("Enter date");
+            projectionDate = communication.askForDate();
+            movieManager.addProjection(chosenMovie, projectionDate);
+            System.out.println(chosenMovie + " \n" + projectionDate);
+        } else {
+            communication.show("There are no movies. Please first enter a movie. ");
+        }
+
+
+    }
+
+    private void addMovie() {
+        communication.show("Please enter movie title");
+        String movieTitle = communication.getTextInput();
+        communication.show("Enter movie description");
+        String description = communication.getTextInput();
+        movieManager.addMovie(movieTitle, description);
+
+    }
+
+    private void buyTicket() {
+        TicketPurchaseProcedure ticketPurchaseProcedure = new TicketPurchaseProcedure(movieManager, communication);
+        ticketPurchaseProcedure.initializePurchase();
     }
 
     private String getNonRegisterUserOptions() {

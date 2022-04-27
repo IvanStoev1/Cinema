@@ -8,10 +8,6 @@ import com.company.theaterManager.MovieTheater;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -115,7 +111,7 @@ public class ConsoleCommManager implements Communication {
             System.out.print((i + 1) + "\t\t");
             for (int j = 0; j < theater.getSeats()[i].length; j++) {
                 if (theater.getSeats()[i][j].isTaken()) {
-                    System.out.print(theater.getSeats()[i][j].getSymbol() + " | ");
+                    System.out.print(theater.getSeats()[i][j].getSymbolForTaken() + " | ");
                 } else {
                     System.out.print(j + 1 + " | ");
                 }

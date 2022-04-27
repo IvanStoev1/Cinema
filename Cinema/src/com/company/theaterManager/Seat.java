@@ -13,14 +13,6 @@ public class Seat implements Serializable {
         this.isTaken = false;
     }
 
-    public int getRow() {
-        return row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
     public boolean isTaken() {
         return isTaken;
     }
@@ -29,10 +21,8 @@ public class Seat implements Serializable {
         isTaken = taken;
     }
 
-    public char getSymbol() {
-        if (isTaken) {
+    public char getSymbolForTaken() {
             return '■';
-        }
-        return '□';
+
     }
 }

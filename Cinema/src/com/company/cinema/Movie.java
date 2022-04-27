@@ -18,10 +18,6 @@ public class Movie implements Serializable {
         return title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     @Override
     public String toString() {
         return "Movie{" +

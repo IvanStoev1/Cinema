@@ -42,10 +42,6 @@ public class Projection implements Serializable {
         return theater;
     }
 
-    public Ticket[] getTickets() {
-        return tickets;
-    }
-
     @Override
     public String toString() {
         return "Projection{" +
