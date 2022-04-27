@@ -28,7 +28,7 @@ public abstract class FIleIO<T> implements Serializable {
         }
     }
 
-    //Fix NEEDED
+    //Fix NEEDED:when file is empty we are going into the catch
     private List<T> load() {
         List<T> data = new ArrayList<>();
         try (ObjectInputStream inputStream =

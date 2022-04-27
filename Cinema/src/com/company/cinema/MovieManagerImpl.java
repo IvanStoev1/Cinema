@@ -23,7 +23,7 @@ public class MovieManagerImpl implements MovieManager {
         movies.insert(movie);
 
     }
-
+    @Override
     public void removeMovie(int index) {
         List<Movie> movies = getAllMovies();
         movies.remove(index);
@@ -42,7 +42,7 @@ public class MovieManagerImpl implements MovieManager {
         Projection projection = new Projection(movieTitle, date);
         projections.insert(projection);
     }
-
+    @Override
     public List<Projection> getUpcomingProjections() {
         Date date = new Date();
         Date endDate = new Date();
@@ -78,19 +78,19 @@ public class MovieManagerImpl implements MovieManager {
 
     @Override
     public void saveChanges(Projection projection) {
-        List<Projection> pr = getAllProjections();
-        if (projectionIndex(projection, pr) != -1) {
-            pr.remove(projectionIndex(projection, pr));
+        List<Projection> projections = getAllProjections();
+        if (projectionIndex(projection, projections) != -1) {
+            projections.remove(projectionIndex(projection, projections));
         }
-        pr.add(projection);
-        projections.overwrite(pr);
+        projections.add(projection);
+        this.projections.overwrite(projections);
 
     }
 
-    private int projectionIndex(Projection projection, List<Projection> pr) {
-        for (int i = 0; i < pr.size(); i++) {
-            if (pr.get(i).getMovieTitle().equals(projection.getMovieTitle()) &&
-                    pr.get(i).getProjectionDate().equals(projection.getProjectionDate())) {
+    private int projectionIndex(Projection projection, List<Projection> projections) {
+        for (int i = 0; i < projections.size(); i++) {
+            if (projections.get(i).getMovieTitle().equals(projection.getMovieTitle()) &&
+                    projections.get(i).getProjectionDate().equals(projection.getProjectionDate())) {
                 return i;
             }
         }
@@ -99,12 +99,12 @@ public class MovieManagerImpl implements MovieManager {
 
     public void autoRemovePastProjections() {
         Date currentDateTime = new Date();
-        List<Projection> pastProjections = projections.findAll();
-        pastProjections
+       List<Projection> pastProjections = getAllProjections();
+        List<Projection> result = pastProjections
                 .stream()
-                .filter(projection -> projection.getProjectionDate().before(currentDateTime))
+                .filter(projection -> projection.getProjectionDate().after(currentDateTime))
                 .collect(Collectors.toList());
-        projections.overwrite(pastProjections);
+        projections.overwrite(result);
     }
 
 }

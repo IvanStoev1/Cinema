@@ -32,6 +32,6 @@ public class ProjectionDao extends FIleIO<Projection> {
                         .filter(projection -> projection.getMovieTitle().equals(object))
                         .findFirst();
 
-        return first.get();
+        return first.orElse(null);
     }
 }

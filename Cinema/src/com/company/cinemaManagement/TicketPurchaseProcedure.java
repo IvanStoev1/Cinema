@@ -1,6 +1,5 @@
 package com.company.cinemaManagement;
 
-import com.company.cinema.MovieDao;
 import com.company.cinema.MovieManager;
 import com.company.cinema.Projection;
 import com.company.cinema.Ticket;
@@ -22,7 +21,7 @@ public class TicketPurchaseProcedure {
             communication.show("Choose projection number");
             Projection chosenProjection = getChosenProjection();
             communication.showTheaterOccupation(chosenProjection);
-            communication.show("Number of free tickets:" + " " + chosenProjection.getTheater().freeSeats());
+            communication.show("Number of free tickets:" + " " + chosenProjection.getTheater().seeFreeSeats());
             communication.show("How many tickets do you want");
             int tickets = maxPurchasableTickets(chosenProjection);
             purchaseTicket(chosenProjection, tickets);
@@ -46,15 +45,17 @@ public class TicketPurchaseProcedure {
                 communication.show("Please enter seat number");
                 col = getCol(chosenProjection);
             }
+
             chosenProjection.getTheater().occupySeat(row, col);
             chosenProjection.addTicket(row, col);
             purchasedTickets[i] = new Ticket(row, col, chosenProjection.getProjectionDate(), chosenProjection.getMovieTitle());
             communication.showTheaterOccupation(chosenProjection);
         }
+
         communication.show("Please confirm your purchase - Press 1 to confirm," +
                 " Press any other positive number to decline");
-        int choice = communication.getNumberInput();
-        if (choice == 1) {
+        int confirmationChoice = communication.getNumberInput();
+        if (confirmationChoice == 1) {
             movieManager.saveChanges(chosenProjection);
             printTicket(purchasedTickets);
         }
@@ -79,7 +80,7 @@ public class TicketPurchaseProcedure {
     }
 
     private int maxPurchasableTickets(Projection projection) {
-        int numberOfFreeTickets = projection.getTheater().freeSeats();
+        int numberOfFreeTickets = projection.getTheater().seeFreeSeats();
         int tickets = communication.getNumberInput();
         while (tickets >= numberOfFreeTickets) {
             communication.show("Not that many tickets available. Please enter a smaller amount");
@@ -98,11 +99,9 @@ public class TicketPurchaseProcedure {
         return movieManager.getUpcomingProjections().get(projectionNumber);
     }
 
-    void printTicket(Ticket[] tickets) {
+    private void printTicket(Ticket[] tickets) {
         for (Ticket ticket : tickets) {
             communication.printTicket(ticket);
         }
-
     }
-
 }
